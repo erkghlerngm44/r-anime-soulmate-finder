@@ -28,8 +28,8 @@ or when you want to stop.
    `client_id`, `client_secret`, as well as a unique `user_agent`
    ([guidelines](https://github.com/reddit/reddit/wiki/API)) under the
    `reddit` config in `praw.ini`.
-3. Install dependencies (see "Dependencies" below).
-4. Run script (see "Usage" below).
+3. Install dependencies (see ["Dependencies"](#dependencies) below).
+4. Run script (see ["Usage"](#usage) below).
 
 
 # Dependencies
