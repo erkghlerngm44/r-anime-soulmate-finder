@@ -1,0 +1,5 @@
+bs4
+numpy
+praw==4
+requests
+scipy
