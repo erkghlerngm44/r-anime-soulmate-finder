@@ -20,7 +20,7 @@ or when you want to stop.
 1. Download/fork/clone/whatever this repo.
 2. [Create a Reddit client](https://www.reddit.com/prefs/apps) and put your
    `client_id`, `client_secret`, as well as a unique `user_agent`
-   [guidelines](https://github.com/reddit/reddit/wiki/API) under the
+   ([guidelines](https://github.com/reddit/reddit/wiki/API)) under the
    `reddit` config in `praw.ini`.
 3. Install dependencies (see "Dependencies" below).
 4. Run script (see "Usage" below).
