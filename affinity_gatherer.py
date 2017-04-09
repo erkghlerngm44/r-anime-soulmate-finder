@@ -2,17 +2,14 @@
 
 
 import argparse
-import copy
 import csv
 import os
 import re
 import time
 
-import bs4
+import malaffinity
 import praw
 import requests
-import scipy
-import scipy.stats
 
 
 wait_between_requests = 2
@@ -22,98 +19,9 @@ regex = "myanimelist\.net/(?:profile|animelist)/([a-z0-9_-]+)"
 regex = re.compile(regex, re.I)
 
 
-# mal_pearson module squished into a class.
-class Pearson:
-    _url = "https://myanimelist.net/malappinfo.php"
-    scores = {}
-
-    def _retrieve_list(self, username, status="all", type="anime"):
-        params = {
-            "u": username,
-            "status": status,
-            "type": type
-        }
-
-        resp = requests.request("GET", self._url, params=params).content
-
-        return bs4.BeautifulSoup(resp, "html.parser")
-
-    def init(self, base_user):
-        """
-        Get the base user's list and create the 'base scores'
-        dict that other people's scores will be compared to.
-        """
-
-        ownlist   = self._retrieve_list(base_user)
-        all_anime = ownlist.findAll("anime")
-
-        for anime in all_anime:
-            id = anime.series_animedb_id.string
-            id = int(id)
-
-            score = anime.my_score.string
-            score = int(score)
-
-            if score > 0:
-                self.scores[id] = [score]
-
-    def pearson(self, username):
-        """
-        Get the r of the base user's scores and someone elses.
-
-        Will return 'r' in the range -1 <= r <= 1, where -1 is
-        negative correlation and 1 is perfect correlation.
-
-        Multiplying 'r' by 100 and rounding to 1dp will
-        give you the MAL affinity.
-        """
-
-        # Create a copy of the scores.
-        scores_copy = copy.deepcopy(self.scores)
-
-        theirlist = self._retrieve_list(username)
-        all_anime = theirlist.findAll("anime")
-
-        if not len(all_anime):
-            return None
-
-        for anime in all_anime:
-            id = anime.series_animedb_id.string
-            id = int(id)
-
-            score = anime.my_score.string
-            score = int(score)
-
-            if score > 0:
-                if id in scores_copy:
-                    scores_copy[id].append(score)
-
-        # Forced to list so no errors when deleting keys.
-        for key in list(scores_copy.keys()):
-            if not len(scores_copy[key]) == 2:
-                del scores_copy[key]
-
-        # Handle cases where the shared score is <= 10, so affinity can not be
-        # accurately calculated. Should return NaN if this is the case.
-        if len(scores_copy) <= 10:
-            return scipy.nan
-
-        scores1 = []
-        scores2 = []
-
-        for key in scores_copy:
-            arr = scores_copy[key]
-
-            scores1.append(arr[0])
-            scores2.append(arr[1])
-
-        pearson = scipy.stats.pearsonr(scores1, scores2)
-
-        return pearson[0]
-
-
 # Set the pearson stuff up.
-pearson = Pearson()
+# Too lazy to rename everything and update docs. Sorry
+pearson = malaffinity.MALAffinity(round=2)
 
 
 def create_reddit_instance():
@@ -170,30 +78,28 @@ def handle_comment(comment):
     # server in a short amount of time.
     time.sleep(wait_between_requests)
 
-    affinity = pearson.pearson(username)
+    try:
+        affinity, shared = pearson.calculate_affinity(username)
 
-    if not affinity:
-        print("- No affinity. Halting for a few seconds...")
+    except malaffinity.MALRateLimitExceededError:
+        print("- MAL's blocking us. Halting for a few seconds...")
         time.sleep(retry_after_failed_request)
-        affinity = pearson.pearson(username)
 
-        if not affinity:
-            # MAL account the user specified probably doesn't exist.
+        try:
+            affinity, shared = pearson.calculate_affinity(username)
+        except:
             print("- Still no affinity. [](#yuishrug)")
             return
 
-    # NaN affinity check.
-    if affinity != affinity:
-        print("- NaN affinity. Shared count is too low. Skipping...")
+    except:
+        print("- Affinity can't be calculated. Skipping...")
         return
-
-    affinity *= 100
-    affinity = round(affinity, 2)
 
     affinities[author_name] = {
         "reddit": author_name,
         "mal": username,
-        "affinity": affinity
+        "affinity": affinity,
+        "shared": shared
     }
 
     print("- Calculated affinity: {}%".format(affinity))
@@ -251,7 +157,7 @@ def main(comments):
 
     # Nicely write data to CSV.
     with open("affinities.csv", "w") as file:
-        headers = ["reddit", "mal", "affinity"]
+        headers = ["reddit", "mal", "affinity", "shared"]
 
         writer = csv.DictWriter(file, fieldnames=headers, lineterminator="\n")
         writer.writeheader()

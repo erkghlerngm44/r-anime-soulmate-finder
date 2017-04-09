@@ -34,21 +34,17 @@ or when you want to stop.
 
 # Dependencies
 
-* BeautifulSoup 4
+* MALAffinity
 * PRAW 4
 * Requests
-* Scipy ([Windows Wheel](http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy))
-* Numpy (for Scipy) ([Windows Wheel](http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy))
 
 For the lazy:
 
     $ pip install -r requirements.txt
 
-Though that might not work properly for Scipy/Numpy, depending on your OS
-and whether or not it can compile the thingymabobs. Installing it is a pain,
-so you're probably best off firing up [Cloud9](https://c9.io/),
-[Codeanywhere](https://codeanywhere.com/) or [Codenvy](https://codenvy.com/)
-and installing this there if you're having problems.
+You might run into issues when installing `MALAffinity`, specifically with
+Scipy and Numpy. If this is the case, follow the instructions 
+[here](https://github.com/erkghlerngm44/malaffinity#dependencies).
 
 
 # Usage
@@ -72,7 +68,7 @@ Importing the script and manually configuring it.
     >>> affinity.pearson.init("MAL_USERNAME")
 
     # OPTIONAL: Check if everything went okay
-    >>> affinity.pearson.scores
+    >>> affinity.pearson._base_scores
     {5680: [10], 7791: [10], 9617: [10], ...}
 
 
@@ -105,7 +101,8 @@ Please don't actually do this. The sane method is nicer.
   one of the "Find your MAL soulmate" ones.
 * Comment IDs are collected through the [Pushshift API](https://pushshift.io/).
 
-  This method allows all comments in a thread to be retrieved faster than PRAW's `reddit.submission(id="SUBMISSION").comments.replace_more(limit=None)`,
+  This method allows all comments in a thread to be retrieved faster than PRAW's 
+  `reddit.submission(id="SUBMISSION").comments.replace_more(limit=None)`,
   at a rate of 100 comments per second. This script takes longer than that
   to process each comment, so don't expect it to end that quickly.
 
@@ -124,6 +121,9 @@ Please don't actually do this. The sane method is nicer.
   the stream bit of this script, and in all cases, the affinity calculated
   using this method matched the affinity that comes up when I visit any
   of the users' profile.
+  
+  To see the code behind this, go to 
+  [erkghlerngm44/malaffinity](https://github.com/erkghlerngm44/malaffinity).
 
 
 # FAQ
