@@ -78,22 +78,23 @@ def handle_comment(comment):
     # server in a short amount of time.
     time.sleep(wait_between_requests)
 
-    try:
-        affinity, shared = pearson.calculate_affinity(username)
-
-    except malaffinity.MALRateLimitExceededError:
-        print("- MAL's blocking us. Halting for a few seconds...")
-        time.sleep(retry_after_failed_request)
-
+    # Two attempts, then give up. Adjust max tries here.
+    # TODO: Better way of doing this?
+    for _ in range(2):
         try:
             affinity, shared = pearson.calculate_affinity(username)
+
+        except malaffinity.MALRateLimitExceededError:
+            print("- MAL's blocking us. Halting for a few seconds...")
+            # TODO: Fix unnecessary waiting on two failed requests.
+            time.sleep(retry_after_failed_request)
+
         except:
-            print("- Still no affinity. [](#yuishrug)")
+            print("- Affinity can't be calculated. Skipping...")
             return
 
-    except:
-        print("- Affinity can't be calculated. Skipping...")
-        return
+        else:
+            break
 
     affinities[author_name] = {
         "reddit": author_name,
