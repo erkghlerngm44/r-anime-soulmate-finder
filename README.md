@@ -135,7 +135,8 @@ this script, so I gave up on the idea and went with a duller name.
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
 
-[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44&subject=Problem%20with%20the%20affinity%20gatherer%20script) and I'll have a look.
+[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44) 
+and I'll have a look.
 
 #### Q: Your code/documentation/taste is shit!
 ![[](#yuishrug)](https://i.imgur.com/gEOKk0P.jpg "Sorry.")
