@@ -13,7 +13,7 @@ Why? I honestly don't know.
 As for why this is in a repo and not a gist, I honestly don't know that as well.
 
 
-# What do?
+## What do?
 
 Processes comments from a chosen comment source, finds the comment author's
 MAL username (if they've specified it in their flair), retrieve their list,
@@ -21,7 +21,7 @@ calculate affinity and store the result. Dump results into a .csv when done,
 or when you want to stop.
 
 
-# Setup
+## Setup
 
 1. Download/fork/clone/whatever this repo.
 2. [Create a Reddit client](https://www.reddit.com/prefs/apps) and put your
@@ -32,7 +32,7 @@ or when you want to stop.
 4. Run script (see ["Usage"](#usage) below).
 
 
-# Dependencies
+## Dependencies
 
 * MALAffinity
 * PRAW 4
@@ -47,7 +47,7 @@ Scipy and Numpy. If this is the case, follow the instructions
 [here](https://github.com/erkghlerngm44/malaffinity#dependencies).
 
 
-# Usage
+## Usage
 
 ### For the normal, sane people:
 Running the script from the command line.
@@ -87,7 +87,7 @@ Importing the script and manually configuring it.
 Please don't actually do this. The sane method is nicer.
 
 
-# Source-specific notes
+## Source-specific notes
 
 ### Comment Stream
 * All comments posted in the subreddit after the script is run are processed.
@@ -114,7 +114,7 @@ Please don't actually do this. The sane method is nicer.
   press `CTRL+C` (`^C`)
 
 
-# More Notes
+## More Notes
 * CTRL+C terminates the script and saves all the calculations to `affinity.csv`,
   which will be created in the same directory as the main script.
 * Method used to calculate affinity has been tested on a modified version of
@@ -126,7 +126,11 @@ Please don't actually do this. The sane method is nicer.
   [erkghlerngm44/malaffinity](https://github.com/erkghlerngm44/malaffinity).
 
 
-# FAQ
+## FAQ
+
+#### Q: Why wasn't this called something snazzy like "/r/anime soulmate finder"?
+Well, I was planning on doing so, then I had my hopes and dreams crushed when I ran
+this script, so I gave up on the idea and went with a duller name.
 
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
