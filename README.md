@@ -118,7 +118,7 @@ Please don't actually do this. The sane method is nicer.
 * CTRL+C terminates the script and saves all the calculations to `affinity.csv`,
   which will be created in the same directory as the main script.
 * Method used to calculate affinity has been tested on a 
-  [modified version of the stream bit of this script](https://github.com/erkghlerngm44/malaffinity-tests), 
+  [modified version](https://github.com/erkghlerngm44/malaffinity-tests) of this script, 
   and in all cases, the affinity calculated using this method matched the affinity 
   that comes up when I visit any of the users' profile.
   
@@ -135,7 +135,8 @@ this script, so I gave up on the idea and went with a duller name.
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
 
-[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44&subject=Problem%20with%20the%20affinity%20gatherer%20script) and I'll have a look.
+[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44) 
+and I'll have a look.
 
 #### Q: Your code/documentation/taste is shit!
 ![[](#yuishrug)](https://i.imgur.com/gEOKk0P.jpg "Sorry.")
