@@ -57,6 +57,9 @@ Running the script from the command line.
 
     # Or using a submission as the source of comments
     $ affinity_gatherer.py MAL_USERNAME --submission SUBMISSION_ID
+    
+    # Search the comment body for a MAL link if the user has no flair
+    $ affinity_gatherer.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
 
 ### For the crazy, insane people:
