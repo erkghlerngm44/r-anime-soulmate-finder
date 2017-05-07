@@ -12,6 +12,10 @@ Why? I honestly don't know.
 
 As for why this is in a repo and not a gist, I honestly don't know that as well.
 
+Credit to TheEnigmaBlade for their 
+[soulmate finder script](https://gist.github.com/TheEnigmaBlade/24205c62280b056fde3d),
+which gave me a few ideas and the code for parts of this script.
+
 
 ## What do?
 
@@ -24,11 +28,14 @@ or when you want to stop.
 ## Setup
 
 1. Download/fork/clone/whatever this repo.
+
 2. [Create a Reddit client](https://www.reddit.com/prefs/apps) and put your
    `client_id`, `client_secret`, as well as a unique `user_agent`
    ([guidelines](https://github.com/reddit/reddit/wiki/API)) under the
    `reddit` config in `praw.ini`.
+
 3. Install dependencies (see ["Dependencies"](#dependencies) below).
+
 4. Run script (see ["Usage"](#usage) below).
 
 
@@ -60,7 +67,6 @@ Running the script from the command line.
     
     # Search the comment body for a MAL link if the user has no flair
     $ affinity_gatherer.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
-
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
@@ -130,14 +136,17 @@ in using this anywhere else. You'd just be wasting your time.
 
 ### Comment Stream
 * All comments posted in the subreddit after the script is run are processed.
+
 * When you've had enough and want to stop it, Press `CTRL+C` (`^C`) to
   stop the program. If you don't stop it, it'll keep running forever and ever.
+
 * Probably a bad idea to run this when the sub's less active. You won't get
   that many results if this is the case.
 
 ### Comments from a Submission
 * This is especially useful if being run in a big thread, like FTF or
   one of the "Find your MAL soulmate" ones.
+
 * Comment IDs are collected through the [Pushshift API](https://pushshift.io/).
 
   This method allows all comments in a thread to be retrieved faster than PRAW's 
@@ -148,6 +157,7 @@ in using this anywhere else. You'd just be wasting your time.
   **NOTE**: The [Legendary FTF](https://redd.it/5p0gfb) took ~300 seconds
   (5 minutes) to process, so expect similar times for threads with
   the same amount of comments.
+
 * The script will exit when there are no more comments left to process in the
   specified thread. If the script needs to be terminated before that,
   press `CTRL+C` (`^C`)
@@ -156,10 +166,12 @@ in using this anywhere else. You'd just be wasting your time.
 ## More Notes
 * CTRL+C terminates the script and saves all the calculations to `affinity.csv`,
   which will be created in the same directory as the main script.
+
 * When using `--search-comment-body`, the comment body will only be searched if
   the comment author doesn't have a MAL flair.
   
   This obviously has its flaws, but I really don't want to rewrite that section. Sorry.
+
 * Method used to calculate affinity has been tested on a 
   [modified version](https://github.com/erkghlerngm44/malaffinity-tests) of this script, 
   and in all cases, the affinity calculated using this method matched the affinity 
