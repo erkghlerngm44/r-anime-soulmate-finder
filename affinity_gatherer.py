@@ -14,6 +14,7 @@ import requests
 
 wait_between_requests = 2
 retry_after_failed_request = 5
+search_comment_body = False
 
 regex = "myanimelist\.net/(?:profile|animelist)/([a-z0-9_-]+)"
 regex = re.compile(regex, re.I)
@@ -60,13 +61,23 @@ def handle_comment(comment):
 
     print("Processing User: {}".format(author_name))
 
-    flair_text = comment.author_flair_text
+    text = comment.author_flair_text
 
-    if not flair_text:
-        print("- No flair text. Skipping...")
-        return
+    if not text:
+        print("- No flair text.", end=" ")
 
-    match = regex.search(flair_text)
+        # Search the comment body if the var is True
+        if search_comment_body and comment.body:
+            # Just set text to the comment body to avoid having to
+            # rewrite this whole section
+            print("Searching comment body...")
+            text = comment.body
+
+        else:
+            print("Skipping...")
+            return
+
+    match = regex.search(text)
 
     if not match:
         print("- Can't find MAL username. Skipping...")
@@ -187,6 +198,12 @@ if __name__ == "__main__":
         help="use the comments in a submission as the comment source"
     )
 
+    parser.add_argument(
+        "-b", "--search-comment-body",
+        help="search the comment body for a mal url as well as the user's flair",
+        action="store_true"
+    )
+
     parser.add_argument("mal_username")
 
     args = parser.parse_args()
@@ -199,6 +216,9 @@ if __name__ == "__main__":
         comments = get_comment_stream()
     elif args.submission:
         comments = get_comments_from_submission(args.submission)
+
+    # Change the `search_comment_body` global.
+    search_comment_body = args.search_comment_body
 
     # Run it.
     main(comments)
