@@ -184,9 +184,13 @@ in using this anywhere else. You'd just be wasting your time.
 
 ## FAQ
 
-#### Q: Why wasn't this called something snazzy like "/r/anime soulmate finder"?
-Well, I was planning on doing so, then I had my hopes and dreams crushed when I ran
-this script, so I gave up on the idea and went with a duller name.
+#### Q: I'm seeing references to `affinity-gatherer` in places here. What's that?
+I originally had the idea to name this `soulmate-finder` as it is right now,
+but after running this script, 
+[my kokoro broke](https://github.com/erkghlerngm44/affinity-gatherer/blob/v1.1.0/README.md#q-why-wasnt-this-called-something-snazzy-like-ranime-soulmate-finder)
+and I gave up on the idea.
+
+I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`
 
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
