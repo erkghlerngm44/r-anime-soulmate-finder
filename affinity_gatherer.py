@@ -186,7 +186,7 @@ def main(comments):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Affinity Gatherer")
+    parser = argparse.ArgumentParser(description="/r/anime soulmate finder")
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
