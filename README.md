@@ -95,6 +95,37 @@ Importing the script and manually configuring it.
 Please don't actually do this. The sane method is nicer.
 
 
+## Examples
+
+Obviously replace `erkghlerngm44` with your own username. 
+Example threads provided if you want to use them.
+
+### Example 1
+**You have a big thread, say one of the 
+  FTFs ([example](https://redd.it/69bcny)) and you want to see what your affinity 
+  with the users on there are**
+
+    $ affinity_gatherer.py erkghlerngm44 --submission 69bcny
+    
+### Example 2
+**You have a soulmate finder or a roast me thread ([example](https://redd.it/69ar1d))
+  and you want to see what your affinity with the users on there are**
+
+    $ affinity_gatherer.py erkghlerngm44 --submission 69ar1d --search-comment-body
+    
+This is useful in these type of threads because some people don't put their MAL in 
+their flair.
+
+This could also be used in FTF if there was a MAL trend going on, but there's no point
+in using this anywhere else. You'd just be wasting your time.
+
+### Example 3
+**You don't have a thread in mind - you just want to see what your affinity with the
+  people commenting in general right now is like**
+
+    $ affinity_gatherer.py erkghlerngm44 --stream
+
+
 ## Source-specific notes
 
 ### Comment Stream
