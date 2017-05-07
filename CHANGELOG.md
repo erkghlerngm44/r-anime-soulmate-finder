@@ -10,6 +10,7 @@
   argument and positional argument
 * Rename `praw.ini` to `praw.ini.example` and add `praw.ini` to `.gitignore`
 * Also, create a `.gitignore`
+* Display message if user already processed
 
 ## v1.1.0 (2017-04-09)
 * Use [`MALAffinity`](https://github.com/erkghlerngm44/malaffinity)
