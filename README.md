@@ -53,10 +53,10 @@ Scipy and Numpy. If this is the case, follow the instructions
 Running the script from the command line.
 
     # Using the comment stream as the source of comments
-    $ affinity_gatherer.py -stream MAL_USERNAME
+    $ affinity_gatherer.py --stream MAL_USERNAME
 
     # Or using a submission as the source of comments
-    $ affinity_gatherer.py -submission SUBMISSION_ID MAL_USERNAME
+    $ affinity_gatherer.py --submission SUBMISSION_ID MAL_USERNAME
 
 
 ### For the crazy, insane people:

@@ -178,12 +178,12 @@ if __name__ == "__main__":
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
-        "-stream",
+        "-c", "--stream",
         help="use the comment stream as the comment source",
         action="store_true"
     )
     group.add_argument(
-        "-submission",
+        "-s", "--submission",
         help="use the comments in a submission as the comment source"
     )
 
