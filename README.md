@@ -156,6 +156,10 @@ in using this anywhere else. You'd just be wasting your time.
 ## More Notes
 * CTRL+C terminates the script and saves all the calculations to `affinity.csv`,
   which will be created in the same directory as the main script.
+* When using `--search-comment-body`, the comment body will only be searched if
+  the comment author doesn't have a MAL flair.
+  
+  This obviously has its flaws, but I really don't want to rewrite that section. Sorry.
 * Method used to calculate affinity has been tested on a 
   [modified version](https://github.com/erkghlerngm44/malaffinity-tests) of this script, 
   and in all cases, the affinity calculated using this method matched the affinity 
