@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased v2.0.0 (2017-05-07)
+## v2.0.0 (2017-05-07)
 * Rename project from `affinity-gatherer` to `r-anime-soulmate-finder`
 * Rename `affinity_gatherer.py` to `soulmate_finder.py` and update all docs
 * Use `--` for long positional args (that were at `-` already)
