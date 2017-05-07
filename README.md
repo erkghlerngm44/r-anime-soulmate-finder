@@ -4,9 +4,9 @@
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
 
-# affinity-gatherer
+# r-anime-soulmate-finder
 
-/r/anime affinity gatherer.
+/r/anime soulmate finder / affinity gatherer.
 
 Why? I honestly don't know.
 
@@ -61,43 +61,43 @@ Scipy and Numpy. If this is the case, follow the instructions
 Running the script from the command line.
 
     # Using the comment stream as the source of comments
-    $ affinity_gatherer.py MAL_USERNAME --stream
+    $ soulmate_finder.py MAL_USERNAME --stream
 
     # Or using a submission as the source of comments
-    $ affinity_gatherer.py MAL_USERNAME --submission SUBMISSION_ID
+    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
     
     # Search the comment body for a MAL link if the user has no flair
-    $ affinity_gatherer.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
 
-    >>> import affinity_gatherer as affinity
+    >>> import soulmate_finder as soulmate
 
 
     # Get your scores loaded
-    >>> affinity.pearson.init("MAL_USERNAME")
+    >>> soulmate.pearson.init("MAL_USERNAME")
 
     # OPTIONAL: Check if everything went okay
-    >>> affinity.pearson._base_scores
+    >>> soulmate.pearson._base_scores
     {5680: [10], 7791: [10], 9617: [10], ...}
 
 
     # OPTIONAL: Search the comment body for a MAL link if the user has no flair
-    >>> affinity.search_comment_body = True
+    >>> soulmate.search_comment_body = True
 
 
     # Getting the CommentForest class for your chosen source of comments
 
     # If you're using the comment stream...
-    >>> comments = affinity.get_comment_stream()
+    >>> comments = soulmate.get_comment_stream()
 
     # Or if you're using a submission...
-    >>> comments = affinity.get_comments_from_submission("SUBMISSION_ID")
+    >>> comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
 
 
     # Feed it into the main function and watch it go!
-    >>> affinity.main(comments)
+    >>> soulmate.main(comments)
 
 Please don't actually do this. The sane method is nicer.
 
@@ -112,13 +112,13 @@ Example threads provided if you want to use them.
   FTFs ([example](https://redd.it/69bcny)) and you want to see what your affinity 
   with the users on there are**
 
-    $ affinity_gatherer.py erkghlerngm44 --submission 69bcny
+    $ soulmate_finder.py erkghlerngm44 --submission 69bcny
     
 ### Example 2
 **You have a soulmate finder or a roast me thread ([example](https://redd.it/69ar1d))
   and you want to see what your affinity with the users on there are**
 
-    $ affinity_gatherer.py erkghlerngm44 --submission 69ar1d --search-comment-body
+    $ soulmate_finder.py erkghlerngm44 --submission 69ar1d --search-comment-body
     
 This is useful in these type of threads because some people don't put their MAL in 
 their flair.
@@ -130,7 +130,7 @@ in using this anywhere else. You'd just be wasting your time.
 **You don't have a thread in mind - you just want to see what your affinity with the
   people commenting in general right now is like**
 
-    $ affinity_gatherer.py erkghlerngm44 --stream
+    $ soulmate_finder.py erkghlerngm44 --stream
 
 
 ## Source-specific notes
