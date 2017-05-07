@@ -67,12 +67,17 @@ Importing the script and manually configuring it.
 
     >>> import affinity_gatherer as affinity
 
+
     # Get your scores loaded
     >>> affinity.pearson.init("MAL_USERNAME")
 
     # OPTIONAL: Check if everything went okay
     >>> affinity.pearson._base_scores
     {5680: [10], 7791: [10], 9617: [10], ...}
+
+
+    # OPTIONAL: Search the comment body for a MAL link if the user has no flair
+    >>> affinity.search_comment_body = True
 
 
     # Getting the CommentForest class for your chosen source of comments
