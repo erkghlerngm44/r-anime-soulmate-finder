@@ -27,6 +27,10 @@ or when you want to stop.
 
 ## Setup
 
+**If the below sounds like jargon to you, or you're too lazy to set this up,
+  read [this](https://gist.github.com/erkghlerngm44/0f79394803ead5f336e173fef877b44b).
+  It should set this all up for you.**
+
 1. Download/fork/clone/whatever this repo.
 
 2. [Create a Reddit client](https://www.reddit.com/prefs/apps) and put your
