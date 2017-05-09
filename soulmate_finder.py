@@ -199,6 +199,8 @@ def main(comments):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="/r/anime soulmate finder")
 
+    parser.add_argument("mal_username")
+
     # Comment source
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -222,8 +224,6 @@ if __name__ == "__main__":
         help="be more verbose (print more about what's going on)",
         action="store_true"
     )
-
-    parser.add_argument("mal_username")
 
     args = parser.parse_args()
 
