@@ -65,9 +65,14 @@ Running the script from the command line.
 
     # Or using a submission as the source of comments
     $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
-    
-    # Search the comment body for a MAL link if the user has no flair
+
+Optional flags
+
+    # Search the comment body for a MAL link if the user has no flair. See Example 2
     $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+
+    # Be more verbose. Best to use this with --stream
+    $ soulmate_finder.py MAL_USERNAME --stream --verbose
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
@@ -85,6 +90,8 @@ Importing the script and manually configuring it.
 
     # OPTIONAL: Search the comment body for a MAL link if the user has no flair
     >>> soulmate.search_comment_body = True
+    # OPTIONAL: More verbosity
+    >>> soulmate.verbose = True
 
 
     # Getting the CommentForest class for your chosen source of comments
@@ -131,6 +138,9 @@ in using this anywhere else. You'd just be wasting your time.
   people commenting in general right now is like**
 
     $ soulmate_finder.py erkghlerngm44 --stream
+    
+**NOTE:** You might want to consider using the `--verbose` flag here. It looks cooler,
+plus you're probably not in a hurry if you're using this.
 
 
 ## Source-specific notes
