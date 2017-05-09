@@ -4,6 +4,8 @@
 ## Unreleased v2.1.0 (2017-05-09)
 * Only display the "Processing User" message for users not already processed
   * Displaying it for already processed users was pointless and too time taxing
+* Make the unnecessary stdout calls optional and disabled by default
+  * This can be activated using the `--verbose` flag
 
 ## v2.0.0 (2017-05-07)
 * Rename project from `affinity-gatherer` to `r-anime-soulmate-finder`
