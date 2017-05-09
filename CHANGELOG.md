@@ -1,6 +1,10 @@
 # Changelog
 
 
+## Unreleased v2.1.0 (2017-05-09)
+* Only display the "Processing User" message for users not already processed
+  * Displaying it for already processed users was pointless and too time taxing
+
 ## v2.0.0 (2017-05-07)
 * Rename project from `affinity-gatherer` to `r-anime-soulmate-finder`
 * Rename `affinity_gatherer.py` to `soulmate_finder.py` and update all docs
