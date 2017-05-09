@@ -14,7 +14,10 @@ import requests
 
 wait_between_requests = 2
 retry_after_failed_request = 5
+
+verbose = False
 search_comment_body = False
+
 
 regex = "myanimelist\.net/(?:profile|animelist)/([a-z0-9_-]+)"
 regex = re.compile(regex, re.I)
@@ -23,6 +26,12 @@ regex = re.compile(regex, re.I)
 # Set the pearson stuff up.
 # Too lazy to rename everything and update docs. Sorry
 pearson = malaffinity.MALAffinity(round=2)
+
+
+def vprint(message, end="\n"):
+    if verbose:
+        print(message, end=end)
+    return
 
 
 def create_reddit_instance():
@@ -67,23 +76,23 @@ def handle_comment(comment):
     text = comment.author_flair_text
 
     if not text:
-        print("- No flair text.", end=" ")
+        vprint("- No flair text.", end=" ")
 
         # Search the comment body if the var is True
         if search_comment_body and comment.body:
             # Just set text to the comment body to avoid having to
             # rewrite this whole section
-            print("Searching comment body...")
+            vprint("Searching comment body...")
             text = comment.body
 
         else:
-            print("Skipping...")
+            vprint("Skipping...")
             return
 
     match = regex.search(text)
 
     if not match:
-        print("- Can't find MAL username. Skipping...")
+        vprint("- Can't find MAL username. Skipping...")
         return
 
     username = match.group(1)
@@ -99,12 +108,12 @@ def handle_comment(comment):
             affinity, shared = pearson.calculate_affinity(username)
 
         except malaffinity.MALRateLimitExceededError:
-            print("- MAL's blocking us. Halting for a few seconds...")
+            vprint("- MAL's blocking us. Halting for a few seconds...")
             # TODO: Fix unnecessary waiting on two failed requests.
             time.sleep(retry_after_failed_request)
 
         except:
-            print("- Affinity can't be calculated. Skipping...")
+            vprint("- Affinity can't be calculated. Skipping...")
             return
 
         else:
@@ -117,7 +126,7 @@ def handle_comment(comment):
         "shared": shared
     }
 
-    print("- Calculated affinity: {}%".format(affinity))
+    vprint("- Calculated affinity: {}%".format(affinity))
 
     return
 
@@ -190,6 +199,7 @@ def main(comments):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="/r/anime soulmate finder")
 
+    # Comment source
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
         "-c", "--stream",
@@ -201,9 +211,15 @@ if __name__ == "__main__":
         help="use the comments in a submission as the comment source"
     )
 
+    # Extra options
     parser.add_argument(
         "-b", "--search-comment-body",
         help="search the comment body for a mal url as well as the user's flair",
+        action="store_true"
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        help="be more verbose (print more about what's going on)",
         action="store_true"
     )
 
@@ -220,7 +236,8 @@ if __name__ == "__main__":
     elif args.submission:
         comments = get_comments_from_submission(args.submission)
 
-    # Change the `search_comment_body` global.
+    # Change the extra options globals
+    verbose = args.verbose
     search_comment_body = args.search_comment_body
 
     # Run it.
