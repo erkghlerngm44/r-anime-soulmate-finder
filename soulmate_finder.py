@@ -54,13 +54,15 @@ def handle_comment(comment):
 
     author_name = comment.author.name
 
-    print("Processing User: {}".format(author_name))
-
     if author_name in processed:
-        print("- Already processed. Skipping...")
         return
 
     processed.add(author_name)
+
+    # stdout's too time taxing. Might as well save some
+    # time and only display this only when this script comes across
+    # a user that hasn't already been processed.
+    print("Processing User: {}".format(author_name))
 
     text = comment.author_flair_text
 
