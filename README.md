@@ -143,6 +143,23 @@ in using this anywhere else. You'd just be wasting your time.
 plus you're probably not in a hurry if you're using this.
 
 
+## Converting the CSV into a Reddit-Friendly table
+Type the `code` bits exactly into the terminal, and only press [ENTER] when instructed,
+unless you know what you're doing
+
+1. `cp affinities.csv affinities.txt` [ENTER]
+2. `vim affinities.txt` [ENTER]
+3. `:%s/,/|/g` [ENTER]
+4. `:%s/_/\\_/g` [ENTER]
+5. `gg`
+6. `o`
+7. `:--|:--|:-:|:-:`
+8. Press the [ESC] key
+9. `:wq` [ENTER]
+
+Check `affinities.txt` for your Reddit-Friendly table!
+
+
 ## Source-specific notes
 
 ### Comment Stream
