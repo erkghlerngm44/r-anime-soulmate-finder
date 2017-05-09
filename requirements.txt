@@ -1,3 +1,3 @@
-malaffinity
-praw>=4
-requests
+malaffinity >=1, <2
+praw >=4, <5
+requests >=2, <3
