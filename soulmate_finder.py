@@ -94,6 +94,8 @@ def get_comments_from_ftfs():
             # WHY CAN'T YOU JUST WORK, REDDIT SEARCH, YOU PILE OF SHITE
             while not done:
                 try:
+                    print("Retrieving comment ids for FTF: {}...".format(ftf_title))
+
                     ftf = subreddit.search(ftf_title)
 
                     ftf = list(ftf)[0]
