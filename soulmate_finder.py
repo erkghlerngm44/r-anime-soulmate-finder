@@ -86,6 +86,9 @@ def get_comments_from_ftfs():
             # "Free Talk Fridays - Week of MONTH DATE, YEAR"
             ftf_title = d.strftime("Free Talk Fridays - Week of %B %d, %Y")
 
+            # Try not to make Reddit and Pushshift's servers angry
+            time.sleep(2)
+
             done = False
 
             # WHY CAN'T YOU JUST WORK, REDDIT SEARCH, YOU PILE OF SHITE
@@ -277,7 +280,7 @@ if __name__ == "__main__":
     # Extra options
     parser.add_argument(
         "-b", "--search-comment-body",
-        help="search the comment body for a mal url as well as the user's flair",
+        help="search the comment body for a mal url if a user doesn't have a flair",
         action="store_true"
     )
     parser.add_argument(
