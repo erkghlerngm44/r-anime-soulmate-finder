@@ -69,6 +69,9 @@ Running the script from the command line.
 
     # Or using a submission as the source of comments
     $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
+    
+    # Or using all ftfs this year as the source of comments
+    $ soulmate_finder.py MAL_USERNAME --ftf
 
 Optional flags
 
@@ -106,6 +109,9 @@ Importing the script and manually configuring it.
     # Or if you're using a submission...
     >>> comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
 
+    # Or if you're using FTFs...
+    >>> comments = soulmate.get_comments_from_ftfs()
+
 
     # Feed it into the main function and watch it go!
     >>> soulmate.main(comments)
@@ -138,6 +144,12 @@ This could also be used in FTF if there was a MAL trend going on, but there's no
 in using this anywhere else. You'd just be wasting your time.
 
 ### Example 3
+**You want to see what your affinity with all of the users who have commented in the FTFs
+this year is like**
+
+    $ soulmate_finder.py erkghlerngm44 --ftfs
+
+### Example 4
 **You don't have a thread in mind - you just want to see what your affinity with the
   people commenting in general right now is like**
 
@@ -193,6 +205,16 @@ Check `affinities.txt` for your Reddit-Friendly table!
 * The script will exit when there are no more comments left to process in the
   specified thread. If the script needs to be terminated before that,
   press `CTRL+C` (`^C`)
+  
+### Comments from all FTFs this year
+* Basically the same as "comments from a submission", but collects all comments
+  from previous FTFs this year and sends that off to be processed.
+
+* Will make ~20 calls to the Pushshift and Reddit API when started up, with a 
+  2 second timeout between requests.
+  
+* Obviously, it will process every comment in those FTFs, so expect it to take
+  considerably longer than any other method.
 
 
 ## More Notes
