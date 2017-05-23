@@ -1,6 +1,9 @@
 # Changelog
 
 
+## v2.2.0 (2017-05-23)
+* Add option to use all FTFs this year as the comment source
+
 ## v2.1.0 (2017-05-09)
 * Only display the "Processing User" message for users not already processed
   * Displaying it for already processed users was pointless and too time taxing
