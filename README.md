@@ -64,57 +64,63 @@ Scipy and Numpy. If this is the case, follow the instructions
 ### For the normal, sane people:
 Running the script from the command line.
 
-    # Using the comment stream as the source of comments
-    $ python3 soulmate_finder.py MAL_USERNAME --stream
+```shell
+# Using the comment stream as the source of comments
+$ python3 soulmate_finder.py MAL_USERNAME --stream
 
-    # Or using a submission as the source of comments
-    $ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
+# Or using a submission as the source of comments
+$ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
 
-    # Or using all ftfs this year as the source of comments
-    $ python3 soulmate_finder.py MAL_USERNAME --ftf
+# Or using all ftfs this year as the source of comments
+$ python3 soulmate_finder.py MAL_USERNAME --ftf
+```
 
 Optional flags
 
-    # Search the comment body for a MAL link if the user has no flair. See Example 2
-    $ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+```shell
+# Search the comment body for a MAL link if the user has no flair. See Example 2
+$ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
-    # Be more verbose. Best to use this with --stream
-    $ python3 soulmate_finder.py MAL_USERNAME --stream --verbose
+# Be more verbose. Best to use this with --stream
+$ python3 soulmate_finder.py MAL_USERNAME --stream --verbose
+```
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
 
-    >>> import soulmate_finder as soulmate
+```python
+import soulmate_finder as soulmate
 
 
-    # Get your scores loaded
-    >>> soulmate.pearson.init("MAL_USERNAME")
+# Get your scores loaded
+soulmate.pearson.init("MAL_USERNAME")
 
-    # OPTIONAL: Check if everything went okay
-    >>> soulmate.pearson._base_scores
-    {5680: [10], 7791: [10], 9617: [10], ...}
-
-
-    # OPTIONAL: Search the comment body for a MAL link if the user has no flair
-    >>> soulmate.search_comment_body = True
-    # OPTIONAL: More verbosity
-    >>> soulmate.verbose = True
+# OPTIONAL: Check if everything went okay
+soulmate.pearson._base_scores
+# {5680: [10], 7791: [10], 9617: [10], ...}
 
 
-    # Getting the CommentForest class for your chosen source of comments
-
-    # If you're using the comment stream...
-    >>> comments = soulmate.get_comment_stream()
-
-    # Or if you're using a submission...
-    >>> comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
-
-    # Or if you're using FTFs...
-    >>> comments = soulmate.get_comments_from_ftfs()
+# OPTIONAL: Search the comment body for a MAL link if the user has no flair
+soulmate.search_comment_body = True
+# OPTIONAL: More verbosity
+soulmate.verbose = True
 
 
-    # Feed it into the main function and watch it go!
-    >>> soulmate.main(comments)
+# Getting the CommentForest class for your chosen source of comments
+
+# If you're using the comment stream...
+comments = soulmate.get_comment_stream()
+
+# Or if you're using a submission...
+comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
+
+# Or if you're using FTFs...
+comments = soulmate.get_comments_from_ftfs()
+
+
+# Feed it into the main function and watch it go!
+soulmate.main(comments)
+```
 
 Please don't actually do this. The sane method is nicer.
 
