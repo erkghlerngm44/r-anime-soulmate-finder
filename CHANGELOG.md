@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v2.3.0 (2017-06-22)
+* `malaffinity` v2 support
+* Better exception handling
+* Always show the `MALRateLimitExceeded` message if it comes up
+  * This was previously not shown by default unless the `--verbose` flag 
+    was used
+
 ## v2.2.0 (2017-05-23)
 * Add option to use all FTFs this year as the comment source
 
