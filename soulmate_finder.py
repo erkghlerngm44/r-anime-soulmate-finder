@@ -164,21 +164,32 @@ def handle_comment(comment):
 
     # Two attempts, then give up. Adjust max tries here.
     # TODO: Better way of doing this?
+    success = False
+
     for _ in range(2):
         try:
             affinity, shared = pearson.calculate_affinity(username)
 
         except malaffinity.exceptions.MALRateLimitExceededError:
             vprint("- MAL's blocking us. Halting for a few seconds...")
-            # TODO: Fix unnecessary waiting on two failed requests.
             time.sleep(retry_after_failed_request)
+            continue
 
-        except:
+        except malaffinity.exceptions.MALAffinityException:
             vprint("- Affinity can't be calculated. Skipping...")
-            return
+            break
+
+        except Exception as e:
+            print("- Exception caught: `{}`. Skipping...".format(e))
+            break
 
         else:
+            success = True
             break
+
+    # Failed for some reason
+    if not success:
+        return
 
     affinities[author_name] = {
         "reddit": author_name,
