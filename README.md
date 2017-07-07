@@ -54,10 +54,6 @@ For the lazy:
 
     $ pip install -r requirements.txt
 
-You might run into issues when installing `MALAffinity`, specifically with
-Scipy and Numpy. If this is the case, follow the instructions 
-[here](https://github.com/erkghlerngm44/malaffinity#dependencies).
-
 
 ## Usage
 
