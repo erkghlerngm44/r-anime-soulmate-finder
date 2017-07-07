@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v2.3.1 (2017-07-07)
+* PRAW 5 support
+  * Isn't breaking this script as far as I can see, so should probably be fine
+
 ## v2.3.0 (2017-06-22)
 * `malaffinity` v2 support
 * Better exception handling
