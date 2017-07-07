@@ -47,7 +47,7 @@ or when you want to stop.
 ## Dependencies
 
 * MALAffinity
-* PRAW 4
+* PRAW
 * Requests
 
 For the lazy:
@@ -64,63 +64,57 @@ Scipy and Numpy. If this is the case, follow the instructions
 ### For the normal, sane people:
 Running the script from the command line.
 
-```shell
-# Using the comment stream as the source of comments
-$ python3 soulmate_finder.py MAL_USERNAME --stream
+    # Using the comment stream as the source of comments
+    $ soulmate_finder.py MAL_USERNAME --stream
 
-# Or using a submission as the source of comments
-$ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
-
-# Or using all ftfs this year as the source of comments
-$ python3 soulmate_finder.py MAL_USERNAME --ftf
-```
+    # Or using a submission as the source of comments
+    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
+    
+    # Or using all ftfs this year as the source of comments
+    $ soulmate_finder.py MAL_USERNAME --ftf
 
 Optional flags
 
-```shell
-# Search the comment body for a MAL link if the user has no flair. See Example 2
-$ python3 soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+    # Search the comment body for a MAL link if the user has no flair. See Example 2
+    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
-# Be more verbose. Best to use this with --stream
-$ python3 soulmate_finder.py MAL_USERNAME --stream --verbose
-```
+    # Be more verbose. Best to use this with --stream
+    $ soulmate_finder.py MAL_USERNAME --stream --verbose
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
 
-```python
-import soulmate_finder as soulmate
+    >>> import soulmate_finder as soulmate
 
 
-# Get your scores loaded
-soulmate.pearson.init("MAL_USERNAME")
+    # Get your scores loaded
+    >>> soulmate.pearson.init("MAL_USERNAME")
 
-# OPTIONAL: Check if everything went okay
-soulmate.pearson._base_scores
-# {5680: [10], 7791: [10], 9617: [10], ...}
-
-
-# OPTIONAL: Search the comment body for a MAL link if the user has no flair
-soulmate.search_comment_body = True
-# OPTIONAL: More verbosity
-soulmate.verbose = True
+    # OPTIONAL: Check if everything went okay
+    >>> soulmate.pearson._base_scores
+    {5680: [10], 7791: [10], 9617: [10], ...}
 
 
-# Getting the CommentForest class for your chosen source of comments
-
-# If you're using the comment stream...
-comments = soulmate.get_comment_stream()
-
-# Or if you're using a submission...
-comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
-
-# Or if you're using FTFs...
-comments = soulmate.get_comments_from_ftfs()
+    # OPTIONAL: Search the comment body for a MAL link if the user has no flair
+    >>> soulmate.search_comment_body = True
+    # OPTIONAL: More verbosity
+    >>> soulmate.verbose = True
 
 
-# Feed it into the main function and watch it go!
-soulmate.main(comments)
-```
+    # Getting the CommentForest class for your chosen source of comments
+
+    # If you're using the comment stream...
+    >>> comments = soulmate.get_comment_stream()
+
+    # Or if you're using a submission...
+    >>> comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
+
+    # Or if you're using FTFs...
+    >>> comments = soulmate.get_comments_from_ftfs()
+
+
+    # Feed it into the main function and watch it go!
+    >>> soulmate.main(comments)
 
 Please don't actually do this. The sane method is nicer.
 
@@ -135,13 +129,13 @@ Example threads provided if you want to use them.
   FTFs ([example](https://redd.it/69bcny)) and you want to see what your affinity 
   with the users on there are**
 
-    $ python3 soulmate_finder.py erkghlerngm44 --submission 69bcny
+    $ soulmate_finder.py erkghlerngm44 --submission 69bcny
     
 ### Example 2
 **You have a soulmate finder or a roast me thread ([example](https://redd.it/69ar1d))
   and you want to see what your affinity with the users on there are**
 
-    $ python3 soulmate_finder.py erkghlerngm44 --submission 69ar1d --search-comment-body
+    $ soulmate_finder.py erkghlerngm44 --submission 69ar1d --search-comment-body
     
 This is useful in these type of threads because some people don't put their MAL in 
 their flair.
@@ -153,13 +147,13 @@ in using this anywhere else. You'd just be wasting your time.
 **You want to see what your affinity with the users who have commented in FTFs
 this year is like**
 
-    $ python3 soulmate_finder.py erkghlerngm44 --ftf
+    $ soulmate_finder.py erkghlerngm44 --ftf
 
 ### Example 4
 **You don't have a thread in mind - you just want to see what your affinity with the
   people commenting in general right now is like**
 
-    $ python3 soulmate_finder.py erkghlerngm44 --stream
+    $ soulmate_finder.py erkghlerngm44 --stream
     
 **NOTE:** You might want to consider using the `--verbose` flag here. It looks cooler,
 plus you're probably not in a hurry if you're using this.
