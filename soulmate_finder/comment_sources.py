@@ -10,7 +10,7 @@ def _retrieve_comment_ids(submission_id):
     comments = requests.request(
         "GET",
         "http://apiv2.pushshift.io/reddit/get/comment_ids/{}"
-            .format(submission_id)
+        .format(submission_id)
     )
     return comments.json()["data"]
 
