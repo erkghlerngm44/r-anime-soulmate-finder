@@ -191,12 +191,14 @@ def handle_comment(comment):
     if not success:
         return
 
-    affinities[author_name] = {
+    writer.writerow({
         "reddit": author_name,
         "mal": username,
         "affinity": affinity,
         "shared": shared
-    }
+    })
+    # Flush so progress is saved... progressively?
+    file.flush()
 
     vprint("- Calculated affinity: {}%".format(affinity))
 
@@ -205,21 +207,32 @@ def handle_comment(comment):
 
 def main(comments):
     global processed
-    global affinities
+    processed = set()
 
-    processed  = set()
-    affinities = {}
+    headers = ["reddit", "mal", "affinity", "shared"]
 
     # Open the affinities file if it exists.
     if os.path.isfile("affinities.csv"):
-        with open("affinities.csv", "r") as file:
-            reader = csv.DictReader(file)
+        with open("affinities.csv", "r") as f:
+            reader = csv.DictReader(f)
 
             for row in reader:
                 user = row["reddit"]
                 processed.add(user)
+    else:
+        # Create the file now
+        with open("affinities.csv", "w") as f:
+            w = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
 
-                affinities[user] = row
+            w.writeheader()
+
+    # Now open the file up for appending, and make the `DictWriter` a global
+    # so `handle_comment` can access it.
+    # TODO: GET RID OF THE BLOODY GLOBALS
+    global file
+    global writer
+    file = open("affinities.csv", "a")
+    writer = csv.DictWriter(file, fieldnames=headers, lineterminator="\n")
 
     start_time = time.time()
 
@@ -241,31 +254,27 @@ def main(comments):
             print("Error: {}".format(e))
             time.sleep(30)
 
+    # Kill the file so we can open it later
+    file.close()
+
     end_time = time.time()
 
     runtime = round(end_time - start_time)
 
     # Is "affinities" a word?
     print("Script runtime: {} seconds".format(runtime))
-    print("Total affinities calculated: {}".format( len(affinities) ))
+    # TODO: Check we can still do this with the new method
+    # print("Total affinities calculated: {}".format( len(affinities) ))
 
-    print("\n" + "Dumping to file...")
+    print("\n" + "Sorting file...")
 
-    # Nicely write data to CSV.
-    with open("affinities.csv", "w") as file:
-        headers = ["reddit", "mal", "affinity", "shared"]
+    # Sort the affinities and write to file
+    reader = csv.DictReader(open("affinities.csv", "r"))
+    sorted_data = sorted(reader, key=lambda d: float(d["affinity"]), reverse=True)
 
-        writer = csv.DictWriter(file, fieldnames=headers, lineterminator="\n")
-        writer.writeheader()
-
-        affinities_sorted = sorted(
-            affinities.items(),
-            key = lambda x: float( x[1]["affinity"] ),
-            reverse = True
-        )
-
-        for user, data in affinities_sorted:
-            writer.writerow(data)
+    writer = csv.DictWriter(open("affinities.csv", "w"), fieldnames=reader.fieldnames, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(sorted_data)
 
 
 if __name__ == "__main__":
