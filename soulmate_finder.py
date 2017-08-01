@@ -42,9 +42,8 @@ def _retrieve_comment_ids(submission_id):
         "http://apiv2.pushshift.io/reddit/get/comment_ids/{}"
             .format(submission_id)
     )
-    comments = comments.json()
+    return comments.json()["data"]
 
-    return comments["data"]
 
 def _create_reddit_instance():
     return praw.Reddit("reddit")
@@ -55,12 +54,14 @@ def get_comment_stream():
 
     return reddit.subreddit("anime").stream.comments()
 
+
 def get_comments_from_submission(submission_id):
     reddit = _create_reddit_instance()
 
     comments = _retrieve_comment_ids(submission_id)
 
     return reddit.info(comments)
+
 
 def get_comments_from_ftfs():
     reddit = _create_reddit_instance()
@@ -90,22 +91,21 @@ def get_comments_from_ftfs():
             time.sleep(2)
 
             done = False
-
             # WHY CAN'T YOU JUST WORK, REDDIT SEARCH, YOU PILE OF SHITE
             while not done:
                 try:
                     print("Retrieving comment ids for FTF: {}...".format(ftf_title))
 
                     ftf = subreddit.search(ftf_title)
-
                     ftf = list(ftf)[0]
 
                     # Add comment ids to the comments list
                     comments += _retrieve_comment_ids(ftf.id)
                 except:
                     print(
-                        "ERR: Failed to retrieve comment ids for FTF: {}. Retrying in 30 seconds."
-                            .format(ftf_title)
+                        "ERR: Failed to retrieve comment ids for FTF: {}. "
+                        "Retrying in 30 seconds."
+                        .format(ftf_title)
                     )
                     time.sleep(30)
                 else:
@@ -179,6 +179,8 @@ def handle_comment(comment):
             vprint("- Affinity can't be calculated. Skipping...")
             break
 
+        # Here
+
         except Exception as e:
             print("- Exception caught: `{}`. Skipping...".format(e))
             break
@@ -223,7 +225,6 @@ def main(comments):
         # Create the file now
         with open("affinities.csv", "w") as f:
             w = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
-
             w.writeheader()
 
     # Now open the file up for appending, and make the `DictWriter` a global
@@ -231,6 +232,7 @@ def main(comments):
     # TODO: GET RID OF THE BLOODY GLOBALS
     global file
     global writer
+
     file = open("affinities.csv", "a")
     writer = csv.DictWriter(file, fieldnames=headers, lineterminator="\n")
 
