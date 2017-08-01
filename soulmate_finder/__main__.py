@@ -88,8 +88,9 @@ def handle_comment(comment):
             time.sleep(const.RETRY_AFTER_FAILED_REQUEST)
             continue
 
-        except malaffinity.exceptions.MALAffinityException:
-            vprint("- Affinity can't be calculated. Skipping...")
+        except malaffinity.exceptions.MALAffinityException as e:
+            vprint("- Affinity can't be calculated (`{}`). Skipping..."
+                   .format(e))
             break
 
         # Here
