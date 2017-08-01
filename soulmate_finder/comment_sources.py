@@ -53,11 +53,22 @@ def get_comments_from_submission(submission_id):
 def get_comments_from_ftfs():
     reddit = _create_reddit_instance()
 
+    # FIXME: This is so misplaced
+    # TODO: MAKE THIS LESS SHIT
+    d = datetime.date.today()
+    e = datetime.date(d.year, 1, 1)
+
+    threshold = time.mktime(e.timetuple())
+
     ftfs = _retrieve_submissions("Free Talk Fridays", subreddit="anime")
 
     comments = []
 
     for ftf in ftfs:
+        # Don't use FTFs that were made before the start of the year
+        if ftf["created_utc"] < threshold:
+            continue
+
         # Don't make Pushshift servers angry
         time.sleep(5)
 
