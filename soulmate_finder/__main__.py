@@ -185,9 +185,17 @@ def main(comments):
 
     # Sort the affinities and write to file
     reader = csv.DictReader(open("affinities.csv", "r"))
-    sorted_data = sorted(reader, key=lambda d: float(d["affinity"]), reverse=True)
+    sorted_data = sorted(
+        reader,
+        key=lambda d: float(d["affinity"]),
+        reverse=True
+    )
 
-    writer = csv.DictWriter(open("affinities.csv", "w"), fieldnames=reader.fieldnames, lineterminator="\n")
+    writer = csv.DictWriter(
+        open("affinities.csv", "w"),
+        fieldnames=reader.fieldnames,
+        lineterminator="\n"
+    )
     writer.writeheader()
     writer.writerows(sorted_data)
 
@@ -217,7 +225,8 @@ if __name__ == "__main__":
     # Extra options
     parser.add_argument(
         "-b", "--search-comment-body",
-        help="search the comment body for a mal url if a user doesn't have a flair",
+        help="search the comment body for a mal url if a user "
+             "doesn't have a flair",
         action="store_true",
         default=False
     )
