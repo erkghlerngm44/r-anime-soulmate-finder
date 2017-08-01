@@ -9,7 +9,7 @@ import time
 
 import malaffinity
 
-
+from . import const
 from .comment_sources import (
     get_comment_stream,
     get_comments_from_ftfs,
@@ -17,15 +17,7 @@ from .comment_sources import (
 )
 
 
-wait_between_requests = 2
-retry_after_failed_request = 5
-
-verbose = False
-search_comment_body = False
-
-
-regex = "myanimelist\.net/(?:profile|animelist)/([a-z0-9_-]+)"
-regex = re.compile(regex, re.I)
+regex = re.compile(const.REGEX, re.I)
 
 
 # Set the pearson stuff up.
@@ -81,7 +73,7 @@ def handle_comment(comment):
 
     # Halt so MAL doesn't get angry if we make too many calls to their
     # server in a short amount of time.
-    time.sleep(wait_between_requests)
+    time.sleep(const.WAIT_BETWEEN_REQUESTS)
 
     # Two attempts, then give up. Adjust max tries here.
     # TODO: Better way of doing this?
@@ -93,7 +85,7 @@ def handle_comment(comment):
 
         except malaffinity.exceptions.MALRateLimitExceededError:
             print("- MAL's blocking us. Halting for a few seconds...")
-            time.sleep(retry_after_failed_request)
+            time.sleep(const.RETRY_AFTER_FAILED_REQUEST)
             continue
 
         except malaffinity.exceptions.MALAffinityException:
@@ -226,12 +218,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "-b", "--search-comment-body",
         help="search the comment body for a mal url if a user doesn't have a flair",
-        action="store_true"
+        action="store_true",
+        default=False
     )
     parser.add_argument(
         "-v", "--verbose",
         help="be more verbose (print more about what's going on)",
-        action="store_true"
+        action="store_true",
+        default=False
     )
 
     args = parser.parse_args()
