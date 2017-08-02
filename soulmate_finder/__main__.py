@@ -20,7 +20,7 @@ from .comment_sources import (
 
 # Set up the logger
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__package__)
 
 
 regex = re.compile(const.REGEX, re.I)
