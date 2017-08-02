@@ -84,7 +84,8 @@ def handle_comment(comment):
             affinity, shared = pearson.calculate_affinity(username)
 
         except malaffinity.exceptions.MALRateLimitExceededError:
-            logger.warning("- MAL's blocking us. Halting for a few seconds...")
+            logger.warning("- MAL's blocking us. "
+                           "Halting for a few seconds...")
             time.sleep(const.RETRY_AFTER_FAILED_REQUEST)
             continue
 
