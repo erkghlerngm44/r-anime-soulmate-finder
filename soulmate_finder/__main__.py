@@ -19,7 +19,7 @@ from .comment_sources import (
 
 
 # Set up the logger
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 logger = logging.getLogger(__package__)
 
 
