@@ -3,6 +3,7 @@
 
 import argparse
 import csv
+import logging
 import os
 import re
 import time
@@ -17,18 +18,17 @@ from .comment_sources import (
 )
 
 
+# Set up the logger
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 regex = re.compile(const.REGEX, re.I)
 
 
 # Set the pearson stuff up.
 # Too lazy to rename everything and update docs. Sorry
 pearson = malaffinity.MALAffinity(round=2)
-
-
-def vprint(message, end="\n"):
-    if verbose:
-        print(message, end=end)
-    return
 
 
 def handle_comment(comment):
@@ -45,28 +45,28 @@ def handle_comment(comment):
     # stdout's too time taxing. Might as well save some
     # time and only display this only when this script comes across
     # a user that hasn't already been processed.
-    print("Processing User: {}".format(author_name))
+    logger.info("Processing User: {}".format(author_name))
 
     text = comment.author_flair_text
 
     if not text:
-        vprint("- No flair text.", end=" ")
+        logger.debug("- No flair text.")
 
         # Search the comment body if the var is True
         if search_comment_body and comment.body:
             # Just set text to the comment body to avoid having to
             # rewrite this whole section
-            vprint("Searching comment body...")
+            logger.debug("- Searching comment body...")
             text = comment.body
 
         else:
-            vprint("Skipping...")
+            logger.debug("- Skipping...")
             return
 
     match = regex.search(text)
 
     if not match:
-        vprint("- Can't find MAL username. Skipping...")
+        logger.debug("- Can't find MAL username. Skipping...")
         return
 
     username = match.group(1)
@@ -84,19 +84,19 @@ def handle_comment(comment):
             affinity, shared = pearson.calculate_affinity(username)
 
         except malaffinity.exceptions.MALRateLimitExceededError:
-            print("- MAL's blocking us. Halting for a few seconds...")
+            logger.warning("- MAL's blocking us. Halting for a few seconds...")
             time.sleep(const.RETRY_AFTER_FAILED_REQUEST)
             continue
 
         except malaffinity.exceptions.MALAffinityException as e:
-            vprint("- Affinity can't be calculated (`{}`). Skipping..."
-                   .format(e))
+            logger.debug("- Affinity can't be calculated (`{}`). Skipping..."
+                         .format(e))
             break
 
         # Here
 
         except Exception as e:
-            print("- Exception caught: `{}`. Skipping...".format(e))
+            logger.error("- Exception caught: `{}`. Skipping...".format(e))
             break
 
         else:
@@ -116,7 +116,7 @@ def handle_comment(comment):
     # Flush so progress is saved... progressively?
     file.flush()
 
-    vprint("- Calculated affinity: {}%".format(affinity))
+    logger.debug("- Calculated affinity: {}%".format(affinity))
 
     return
 
@@ -159,15 +159,15 @@ def main(comments):
             # Will only get called if using comments from a submission.
             # If processing from comment stream, KeyboardInterrupt
             # is the only way out.
-            print("\n\n" + "Processed all users. Breaking loop...")
+            logger.info("\n\n" + "Processed all users. Breaking loop...")
             break
 
         except KeyboardInterrupt:
-            print("\n\n" + "KeyboardInterrupt. Breaking loop...")
+            logger.info("\n\n" + "KeyboardInterrupt. Breaking loop...")
             break
 
         except Exception as e:
-            print("Error: {}".format(e))
+            logger.error("Error: {}".format(e))
             time.sleep(30)
 
     # Kill the file so we can open it later
@@ -178,11 +178,11 @@ def main(comments):
     runtime = round(end_time - start_time)
 
     # Is "affinities" a word?
-    print("Script runtime: {} seconds".format(runtime))
+    logger.info("Script runtime: {} seconds".format(runtime))
     # TODO: Check we can still do this with the new method
     # print("Total affinities calculated: {}".format( len(affinities) ))
 
-    print("\n" + "Sorting file...")
+    logger.info("\n" + "Sorting file...")
 
     # Sort the affinities and write to file
     reader = csv.DictReader(open("affinities.csv", "r"))
