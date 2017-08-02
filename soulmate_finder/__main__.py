@@ -251,8 +251,11 @@ if __name__ == "__main__":
     elif args.ftf:
         comments = get_comments_from_ftfs()
 
+    # Set logging level to `DEBUG` if verbose flag specified
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+
     # Change the extra options globals
-    verbose = args.verbose
     search_comment_body = args.search_comment_body
 
     # Run it.
