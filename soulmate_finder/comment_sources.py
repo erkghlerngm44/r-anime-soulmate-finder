@@ -60,7 +60,8 @@ def get_comments_from_ftfs():
 
     threshold = time.mktime(e.timetuple())
 
-    ftfs = _retrieve_submissions("Free Talk Fridays", subreddit="anime")
+    ftfs = _retrieve_submissions("Free Talk Fridays",
+                                 subreddit="anime", limit=60)
 
     comments = []
 
