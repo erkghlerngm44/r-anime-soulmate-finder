@@ -1,8 +1,12 @@
 import datetime
+import logging
 import time
 
 import praw
 import requests
+
+
+logger = logging.getLogger(__package__)
 
 
 def _retrieve_comment_ids(submission_id):
@@ -73,7 +77,7 @@ def get_comments_from_ftfs():
         # Don't make Pushshift servers angry
         time.sleep(5)
 
-        print("Retrieving comment ids for FTF: {}".format(ftf["title"]))
+        logger.info("Retrieving comment ids for FTF: {}".format(ftf["title"]))
 
         comments.extend(_retrieve_comment_ids(ftf["id"]))
 
