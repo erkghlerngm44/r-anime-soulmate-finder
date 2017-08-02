@@ -1,4 +1,5 @@
 # allow `soulmate_finder` to be imported
 
 # FIXME: This is bad
-from .__main__ import *
+# FIXME: WHY IS THIS CAUSING A RUNTIMEWARNING???
+# from .__main__ import *
