@@ -84,5 +84,7 @@ def get_comments_from_ftfs():
 
         comments.extend(_retrieve_comment_ids(ftf["id"]))
 
+    logger.debug("Received {} comments".format(len(comments)))
+
     # Sorry, reddit servers
     return reddit.info(comments)
