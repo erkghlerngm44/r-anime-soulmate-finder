@@ -184,20 +184,22 @@ def main(comments):
     logger.info("\n" + "Sorting file...")
 
     # Sort the affinities and write to file
-    reader = csv.DictReader(open("affinities.csv", "r"))
-    sorted_data = sorted(
-        reader,
-        key=lambda d: float(d["affinity"]),
-        reverse=True
-    )
+    with open("affinities.csv", "r") as f:
+        reader = csv.DictReader(f)
+        sorted_data = sorted(
+            reader,
+            key=lambda d: float(d["affinity"]),
+            reverse=True
+        )
 
-    writer = csv.DictWriter(
-        open("affinities.csv", "w"),
-        fieldnames=reader.fieldnames,
-        lineterminator="\n"
-    )
-    writer.writeheader()
-    writer.writerows(sorted_data)
+    with open("affinities.csv", "w") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=reader.fieldnames,
+            lineterminator="\n"
+        )
+        writer.writeheader()
+        writer.writerows(sorted_data)
 
 
 if __name__ == "__main__":
