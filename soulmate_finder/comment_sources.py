@@ -77,7 +77,8 @@ def get_comments_from_ftfs():
         # Don't make Pushshift servers angry
         time.sleep(5)
 
-        logger.info("Retrieving comment ids for FTF: {}".format(ftf["title"]))
+        logger.info("Retrieving comment ids for FTF: {} ({})"
+                    .format(ftf["title"], ftf["id"]))
 
         comments.extend(_retrieve_comment_ids(ftf["id"]))
 
