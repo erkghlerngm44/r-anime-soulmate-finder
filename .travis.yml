@@ -1,0 +1,18 @@
+language: python
+cache: pip
+sudo: false
+
+python:
+  - 3.6
+
+install:
+  - pip install flake8
+
+script:
+  # Meh, this'll do for now
+  - flake8
+
+# TODO: Have it clone erkghlerngm44.github.io and update
+# `sf-easy-setup.sh` with new version if tagged release.
+# (Actually, just telling the script to use `latest` would
+# be better.
