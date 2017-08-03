@@ -75,46 +75,6 @@ Optional flags
     $ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
 
 
-## Examples
-
-Obviously replace `erkghlerngm44` with your own username. 
-Example threads provided if you want to use them.
-
-### Example 1
-**You have a big thread, say one of the 
-  FTFs ([example](https://redd.it/69bcny)) and you want to see what your affinity 
-  with the users on there are**
-
-    $ python3 -m soulmate_finder erkghlerngm44 --submission 69bcny
-    
-### Example 2
-**You have a soulmate finder or a roast me thread ([example](https://redd.it/69ar1d))
-  and you want to see what your affinity with the users on there are**
-
-    $ python3 -m soulmate_finder erkghlerngm44 --submission 69ar1d --search-comment-body
-    
-This is useful in these type of threads because some people don't put their MAL in 
-their flair.
-
-This could also be used in FTF if there was a MAL trend going on, but there's no point
-in using this anywhere else. You'd just be wasting your time.
-
-### Example 3
-**You want to see what your affinity with the users who have commented in FTFs
-this year is like**
-
-    $ python3 -m soulmate_finder erkghlerngm44 --ftf
-
-### Example 4
-**You don't have a thread in mind - you just want to see what your affinity with the
-  people commenting in general right now is like**
-
-    $ python3 -m soulmate_finder erkghlerngm44 --stream
-    
-**NOTE:** You might want to consider using the `--verbose` flag here. It looks cooler,
-plus you're probably not in a hurry if you're using this.
-
-
 ## Converting the CSV into a Reddit-Friendly table
 Type the `code` bits exactly into the terminal, and only press [ENTER] when instructed,
 unless you know what you're doing
