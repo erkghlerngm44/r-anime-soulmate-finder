@@ -72,6 +72,8 @@ def get_comments_from_ftfs():
     for ftf in ftfs:
         # Don't use FTFs that were made before the start of the year
         if ftf["created_utc"] < threshold:
+            logger.debug("Skipping FTF: {} ({}) because creation date is "
+                         "below threshold".format(ftf["title"], ftf["id"]))
             continue
 
         # Don't make Pushshift servers angry
