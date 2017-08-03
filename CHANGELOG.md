@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v3.0.0 (2017-08-03)
+* Write the affinity values straight to the file, and sort it once all the values
+  have been retrieved, to make the script less memory intensive
+* Split `soulmate_finder.py` into separate files, under the `soulmate_finder`
+  directory
+* Have the version somewhere in the script
+* Use Pushshift's API to get the FTF submissions, instead of manually searching for
+  them ourselves
+* Show why affinity can't be calculated if `MALAffinityException` is raised, and
+  `verbose` is `True`
+* Use the `logging` module instead of `print` statements
+* Get rid of `vprint` and use `logging.debug` instead
+* Show the FTF id on the "retrieving comment ids" message
+* Add a debug message to show how many comments will be processed, if using `--ftf`
+* Cleanup the readme
+* Add `affinities.csv`, and `env/`, `venv/` to the gitignore
+* Make all .py files PEP8 compliant, and set up Travis to check if this is the case
+
+
 ## v2.3.1 (2017-07-07)
 * PRAW 5 support
   * Isn't breaking this script as far as I can see, so should probably be fine
