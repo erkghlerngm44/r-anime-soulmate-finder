@@ -61,21 +61,21 @@ For the lazy:
 Running the script from the command line.
 
     # Using the comment stream as the source of comments
-    $ soulmate_finder.py MAL_USERNAME --stream
+    $ python3 -m soulmate_finder MAL_USERNAME --stream
 
     # Or using a submission as the source of comments
-    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID
+    $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
     
     # Or using all ftfs this year as the source of comments
-    $ soulmate_finder.py MAL_USERNAME --ftf
+    $ python3 -m soulmate_finder MAL_USERNAME --ftf
 
 Optional flags
 
     # Search the comment body for a MAL link if the user has no flair. See Example 2
-    $ soulmate_finder.py MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+    $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
     # Be more verbose. Best to use this with --stream
-    $ soulmate_finder.py MAL_USERNAME --stream --verbose
+    $ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
 
 ### For the crazy, insane people:
 Importing the script and manually configuring it.
@@ -125,13 +125,13 @@ Example threads provided if you want to use them.
   FTFs ([example](https://redd.it/69bcny)) and you want to see what your affinity 
   with the users on there are**
 
-    $ soulmate_finder.py erkghlerngm44 --submission 69bcny
+    $ python3 -m soulmate_finder erkghlerngm44 --submission 69bcny
     
 ### Example 2
 **You have a soulmate finder or a roast me thread ([example](https://redd.it/69ar1d))
   and you want to see what your affinity with the users on there are**
 
-    $ soulmate_finder.py erkghlerngm44 --submission 69ar1d --search-comment-body
+    $ python3 -m soulmate_finder erkghlerngm44 --submission 69ar1d --search-comment-body
     
 This is useful in these type of threads because some people don't put their MAL in 
 their flair.
@@ -143,13 +143,13 @@ in using this anywhere else. You'd just be wasting your time.
 **You want to see what your affinity with the users who have commented in FTFs
 this year is like**
 
-    $ soulmate_finder.py erkghlerngm44 --ftf
+    $ python3 -m soulmate_finder erkghlerngm44 --ftf
 
 ### Example 4
 **You don't have a thread in mind - you just want to see what your affinity with the
   people commenting in general right now is like**
 
-    $ soulmate_finder.py erkghlerngm44 --stream
+    $ python3 -m soulmate_finder erkghlerngm44 --stream
     
 **NOTE:** You might want to consider using the `--verbose` flag here. It looks cooler,
 plus you're probably not in a hurry if you're using this.
