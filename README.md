@@ -10,8 +10,6 @@
 
 Why? I honestly don't know.
 
-As for why this is in a repo and not a gist, I honestly don't know that as well.
-
 Credit to TheEnigmaBlade for their 
 [soulmate finder script](https://gist.github.com/TheEnigmaBlade/24205c62280b056fde3d),
 which gave me a few ideas and the code for parts of this script.
@@ -68,7 +66,7 @@ For the lazy:
 
 Optional flags
 
-    # Search the comment body for a MAL link if the user has no flair. See Example 2
+    # Search the comment body for a MAL link if the user has no flair
     $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 
     # Be more verbose. Best to use this with --stream
