@@ -126,7 +126,7 @@ Check `affinities.txt` for your Reddit-Friendly table!
 * Basically the same as "comments from a submission", but collects all comments
   from previous FTFs this year and sends that off to be processed.
 
-* Will make ~20 calls to the Pushshift and Reddit API when started up, with a 
+* Will make a few calls to the Pushshift and Reddit API when started up, with a
   2 second timeout between requests.
   
 * Obviously, it will process every comment in those FTFs, so expect it to take
