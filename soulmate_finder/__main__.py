@@ -94,8 +94,6 @@ def handle_comment(comment):
                          .format(e))
             break
 
-        # Here
-
         except Exception as e:
             logger.error("- Exception caught: `{}`. Skipping...".format(e))
             break
