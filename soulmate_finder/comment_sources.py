@@ -67,6 +67,7 @@ def get_comments_from_ftfs():
     ftfs = _retrieve_submissions("Free Talk Fridays",
                                  subreddit="anime", limit=60)
 
+    # TODO: Generator?
     comments = []
 
     for ftf in ftfs:
