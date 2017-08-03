@@ -57,9 +57,6 @@ For the lazy:
 
 ## Usage
 
-### For the normal, sane people:
-Running the script from the command line.
-
     # Using the comment stream as the source of comments
     $ python3 -m soulmate_finder MAL_USERNAME --stream
 
@@ -76,43 +73,6 @@ Optional flags
 
     # Be more verbose. Best to use this with --stream
     $ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
-
-### For the crazy, insane people:
-Importing the script and manually configuring it.
-
-    >>> import soulmate_finder as soulmate
-
-
-    # Get your scores loaded
-    >>> soulmate.pearson.init("MAL_USERNAME")
-
-    # OPTIONAL: Check if everything went okay
-    >>> soulmate.pearson._base_scores
-    {5680: [10], 7791: [10], 9617: [10], ...}
-
-
-    # OPTIONAL: Search the comment body for a MAL link if the user has no flair
-    >>> soulmate.search_comment_body = True
-    # OPTIONAL: More verbosity
-    >>> soulmate.verbose = True
-
-
-    # Getting the CommentForest class for your chosen source of comments
-
-    # If you're using the comment stream...
-    >>> comments = soulmate.get_comment_stream()
-
-    # Or if you're using a submission...
-    >>> comments = soulmate.get_comments_from_submission("SUBMISSION_ID")
-
-    # Or if you're using FTFs...
-    >>> comments = soulmate.get_comments_from_ftfs()
-
-
-    # Feed it into the main function and watch it go!
-    >>> soulmate.main(comments)
-
-Please don't actually do this. The sane method is nicer.
 
 
 ## Examples
