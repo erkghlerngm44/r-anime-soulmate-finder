@@ -242,6 +242,10 @@ if __name__ == "__main__":
     # Set pearson stuff up.
     pearson.init(args.mal_username)
 
+    # Set logging level to `DEBUG` if verbose flag specified
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+
     # Choose either comment stream or comments from submission.
     if args.stream:
         comments = get_comment_stream()
@@ -249,10 +253,6 @@ if __name__ == "__main__":
         comments = get_comments_from_submission(args.submission)
     elif args.ftf:
         comments = get_comments_from_ftfs()
-
-    # Set logging level to `DEBUG` if verbose flag specified
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
 
     # Change the extra options globals
     search_comment_body = args.search_comment_body
