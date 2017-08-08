@@ -18,6 +18,10 @@ from .comment_sources import (
 )
 
 
+# Version
+__version__ = const.version
+
+
 # Set up the logger
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 logger = logging.getLogger(__package__)
