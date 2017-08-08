@@ -57,7 +57,7 @@ def get_comments_from_submission(submission_id):
     return reddit.info(comments)
 
 
-def get_comments_from_ftfs(limit):
+def get_comments_from_ftfs(limit=10):
     reddit = _create_reddit_instance()
 
     ftfs = _retrieve_submissions(q="Free Talk Fridays", subreddit="anime",
