@@ -227,7 +227,7 @@ if __name__ == "__main__":
         "-f", "--ftf",
         help=("use the comments in ftfs as the comment source. "
               "`LIMIT` specifies how many ftfs to use, working backwards "
-              "from the current one"),
+              "from the current one (default 10)"),
         metavar="LIMIT",
         default=10
     )
