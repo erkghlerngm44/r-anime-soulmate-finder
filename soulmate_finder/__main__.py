@@ -224,8 +224,11 @@ if __name__ == "__main__":
     )
     group.add_argument(
         "-f", "--ftf",
-        help="use the comments in all ftfs this year as the comment source",
-        action="store_true"
+        help=("use the comments in ftfs as the comment source. "
+              "`LIMIT` specifies how many ftfs to use, working backwards "
+              "from the current one"),
+        metavar="LIMIT",
+        default=10
     )
 
     # Verbose/quiet option
@@ -269,7 +272,7 @@ if __name__ == "__main__":
     elif args.submission:
         comments = get_comments_from_submission(args.submission)
     elif args.ftf:
-        comments = get_comments_from_ftfs()
+        comments = get_comments_from_ftfs(args.ftf)
 
     # Change the extra options globals
     search_comment_body = args.search_comment_body

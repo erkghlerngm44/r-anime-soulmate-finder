@@ -57,20 +57,11 @@ def get_comments_from_submission(submission_id):
     return reddit.info(comments)
 
 
-def get_comments_from_ftfs():
+def get_comments_from_ftfs(limit):
     reddit = _create_reddit_instance()
 
-    # FIXME: This is so misplaced
-    # TODO: MAKE THIS LESS SHIT
-    d = datetime.date.today()
-    e = datetime.date(d.year, 1, 1)
-
-    threshold = time.mktime(e.timetuple())
-    # Force to int because reasons
-    threshold = int(threshold)
-
     ftfs = _retrieve_submissions(q="Free Talk Fridays", subreddit="anime",
-                                 limit=60, sort="desc", after=threshold)
+                                 limit=limit, sort="desc")
 
     # TODO: Generator?
     comments = []
