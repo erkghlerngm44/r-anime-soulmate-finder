@@ -19,15 +19,18 @@ def _retrieve_comment_ids(submission_id):
     return comments.json()["data"]
 
 
-def _retrieve_submissions(query, subreddit, limit=100):
-    # I love pushshift
-    params = {
-        "q": query,
-        "subreddit": subreddit,
-        "sort": "desc",
-        "limit": limit
-    }
+def _retrieve_submissions(**params):
+    """
+    https://goo.gl/mHn7P3
 
+    :param q: The search keyword(s) or phrase
+    :param subreddit: Restrict to a specific subreddit
+    :param limit: Return up to limit comments
+    :param sort: Sort by comment ids in descending or ascending order
+    :param after: Show only comments older than epoch date. The API also
+        understands m,h,d (i.e. 4h to search the previous 4 hours, etc.)
+    """
+    # I love pushshift
     submissions = requests.request(
         "GET",
         "https://apiv2.pushshift.io/reddit/submission/search/",
@@ -63,20 +66,16 @@ def get_comments_from_ftfs():
     e = datetime.date(d.year, 1, 1)
 
     threshold = time.mktime(e.timetuple())
+    # Force to int because reasons
+    threshold = int(threshold)
 
-    ftfs = _retrieve_submissions("Free Talk Fridays",
-                                 subreddit="anime", limit=60)
+    ftfs = _retrieve_submissions(q="Free Talk Fridays", subreddit="anime",
+                                 limit=60, sort="desc", after=threshold)
 
     # TODO: Generator?
     comments = []
 
     for ftf in ftfs:
-        # Don't use FTFs that were made before the start of the year
-        if ftf["created_utc"] < threshold:
-            logger.debug("Skipping FTF: {} ({}) because creation date is "
-                         "below threshold".format(ftf["title"], ftf["id"]))
-            continue
-
         # Don't make Pushshift servers angry
         time.sleep(5)
 
