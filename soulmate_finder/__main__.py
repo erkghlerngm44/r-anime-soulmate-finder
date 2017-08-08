@@ -220,7 +220,8 @@ if __name__ == "__main__":
     )
     group.add_argument(
         "-s", "--submission",
-        help="use the comments in a submission as the comment source"
+        help="use the comments in a submission as the comment source",
+        metavar="SUBMISSION_ID"
     )
     group.add_argument(
         "-f", "--ftf",
