@@ -228,17 +228,26 @@ if __name__ == "__main__":
         action="store_true"
     )
 
+    # Verbose/quiet option
+    group2 = parser.add_mutually_exclusive_group(required=False)
+    group2.add_argument(
+        "-v", "--verbose",
+        help="be more verbose (print more about what's going on)",
+        action="store_true",
+        default=False
+    )
+    group2.add_argument(
+        "-q", "--quiet",
+        help="quiet (silent) mode (only display errors)",
+        action="store_true",
+        default=False
+    )
+
     # Extra options
     parser.add_argument(
         "-b", "--search-comment-body",
         help="search the comment body for a mal url if a user "
              "doesn't have a flair",
-        action="store_true",
-        default=False
-    )
-    parser.add_argument(
-        "-v", "--verbose",
-        help="be more verbose (print more about what's going on)",
         action="store_true",
         default=False
     )
@@ -251,6 +260,8 @@ if __name__ == "__main__":
     # Set logging level to `DEBUG` if verbose flag specified
     if args.verbose:
         logger.setLevel(logging.DEBUG)
+    elif args.quiet:
+        logger.setLevel(logging.ERROR)
 
     # Choose either comment stream or comments from submission.
     if args.stream:
