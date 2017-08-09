@@ -55,24 +55,35 @@ For the lazy:
 
 ## Usage
 
-    # Using the comment stream as the source of comments
-    $ python3 -m soulmate_finder MAL_USERNAME --stream
+**NOTE: The `python3` part may be different for you, depending on your OS and/or Python install.
+  The variants (IIRC) are `py`, `python`, `python3` and `py -3`. Try each, only specifying the argument
+  `--version` at the end, until your terminal tells you it's using `Python 3.x.x`, then use that in place
+  of `python3`.**
 
-    # Or using a submission as the source of comments
-    $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
-    
-    # Or using Free Talk Fridays (FTFs) as the source of comments (by default, the latest 10 will be used)
-    $ python3 -m soulmate_finder MAL_USERNAME --ftf
-    # Use more FTFs...
-    $ python3 -m soulmate_finder MAL_USERNAME --ftf LIMIT
+```shell
+
+# Using the comment stream as the source of comments
+$ python3 -m soulmate_finder MAL_USERNAME --stream
+
+# Or using a submission as the source of comments
+$ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
+
+# Or using Free Talk Fridays (FTFs) as the source of comments (by default, the latest 10 will be used)
+$ python3 -m soulmate_finder MAL_USERNAME --ftf
+# Use more FTFs...
+$ python3 -m soulmate_finder MAL_USERNAME --ftf LIMIT
+```
 
 Optional flags
 
-    # Search the comment body for a MAL link if the user has no flair
-    $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+```shell
 
-    # Be more verbose. Best to use this with --stream
-    $ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
+# Search the comment body for a MAL link if the user has no flair
+$ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
+
+# Be more verbose. Best to use this with --stream
+$ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
+```
 
 
 ## Converting the CSV into a Reddit-Friendly table
