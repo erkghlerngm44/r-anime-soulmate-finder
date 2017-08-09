@@ -13,7 +13,7 @@ def _retrieve_comment_ids(submission_id):
     # https://www.reddit.com/r/redditdev/comments/5to97v/slug/ddoeedj/
     comments = requests.request(
         "GET",
-        "http://apiv2.pushshift.io/reddit/get/comment_ids/{}"
+        "https://apiv2.pushshift.io/reddit/get/comment_ids/{}"
         .format(submission_id)
     )
     return comments.json()["data"]
