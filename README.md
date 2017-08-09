@@ -61,8 +61,10 @@ For the lazy:
     # Or using a submission as the source of comments
     $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
     
-    # Or using all ftfs this year as the source of comments
+    # Or using Free Talk Fridays (FTFs) as the source of comments (by default, the last 10 will be used)
     $ python3 -m soulmate_finder MAL_USERNAME --ftf
+    # Use more FTFs...
+    $ python3 -m soulmate_finder MAL_USERNAME --ftf LIMIT
 
 Optional flags
 
@@ -120,15 +122,17 @@ Check `affinities.txt` for your Reddit-Friendly table!
   specified thread. If the script needs to be terminated before that,
   press `CTRL+C` (`^C`)
   
-### Comments from all FTFs this year
-* Basically the same as "comments from a submission", but collects all comments
-  from previous FTFs this year and sends that off to be processed.
+### Comments from FTFs
+* Basically the same as "comments from a submission", but collects comments from previous
+  FTFs to be processed.
+
+* The number of FTFs to use can be specified with the optional `LIMIT` argument. By default,
+  the latest 10 will be used.
 
 * Will make a few calls to the Pushshift and Reddit API when started up, with a
-  2 second timeout between requests.
+  5 second timeout between requests.
   
-* Obviously, it will process every comment in those FTFs, so expect it to take
-  considerably longer than any other method.
+* Obviously, the more FTFs you choose to process, the longer the script will take to complete.
 
 
 ## More Notes
