@@ -61,7 +61,7 @@ For the lazy:
     # Or using a submission as the source of comments
     $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
     
-    # Or using Free Talk Fridays (FTFs) as the source of comments (by default, the last 10 will be used)
+    # Or using Free Talk Fridays (FTFs) as the source of comments (by default, the latest 10 will be used)
     $ python3 -m soulmate_finder MAL_USERNAME --ftf
     # Use more FTFs...
     $ python3 -m soulmate_finder MAL_USERNAME --ftf LIMIT
