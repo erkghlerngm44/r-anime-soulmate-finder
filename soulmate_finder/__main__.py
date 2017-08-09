@@ -229,8 +229,7 @@ if __name__ == "__main__":
               "`LIMIT` specifies how many ftfs to use, working backwards "
               "from the current one (default 10)"),
         metavar="LIMIT",
-        # THIS IS BROKEN; FIX IT
-        nargs="?", const=10, default=10
+        nargs="?", const=10
     )
 
     # Verbose/quiet option
