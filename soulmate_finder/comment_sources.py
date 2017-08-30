@@ -16,7 +16,16 @@ def _retrieve_comment_ids(submission_id):
         "GET",
         const.PUSHSHIFT_ENDPOINTS.COMMENT_IDS.format(submission=submission_id)
     )
-    return comments.json()["data"]
+
+    data = comments.json()["data"]
+
+    # See if endpoint returns fullnames. If so, it's fine, if not, we'll have
+    # to add the "t1_" (comment type prefix) to each one, and make sure we
+    # return it as a list, as `reddit.info` really doesn't like generators.
+    if data[0].startswith("t1_"):  # assume if okay for one, it's okay for all
+        return data
+
+    return ["t1_" + x for x in data]
 
 
 def _retrieve_submissions(**params):
