@@ -19,11 +19,11 @@ from .comment_sources import (
 
 
 # Version
-__version__ = const.version
+__version__ = const.VERSION
 
 
 # Set up the logger
-logging.basicConfig(format="%(message)s", level=logging.INFO)
+logging.basicConfig(format=const.LOGGING_FORMAT, level=logging.INFO)
 logger = logging.getLogger(__package__)
 
 
@@ -32,7 +32,7 @@ regex = re.compile(const.REGEX, re.I)
 
 # Set the pearson stuff up.
 # Too lazy to rename everything and update docs. Sorry
-pearson = malaffinity.MALAffinity(round=2)
+pearson = malaffinity.MALAffinity(round=const.ROUND_AFFINITIES_TO)
 
 
 def handle_comment(comment):
@@ -128,7 +128,7 @@ def main(comments):
     global processed
     processed = set()
 
-    headers = ["reddit", "mal", "affinity", "shared"]
+    headers = const.HEADERS
 
     # Open the affinities file if it exists.
     if os.path.isfile("affinities.csv"):

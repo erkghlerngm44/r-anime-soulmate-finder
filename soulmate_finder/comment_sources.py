@@ -4,6 +4,8 @@ import time
 import praw
 import requests
 
+from . import const
+
 
 logger = logging.getLogger(__package__)
 
@@ -12,8 +14,7 @@ def _retrieve_comment_ids(submission_id):
     # https://www.reddit.com/r/redditdev/comments/5to97v/slug/ddoeedj/
     comments = requests.request(
         "GET",
-        "https://apiv2.pushshift.io/reddit/get/comment_ids/{}"
-        .format(submission_id)
+        const.PUSHSHIFT_ENDPOINTS.COMMENT_IDS.format(submission=submission_id)
     )
     return comments.json()["data"]
 
@@ -32,7 +33,7 @@ def _retrieve_submissions(**params):
     # I love pushshift
     submissions = requests.request(
         "GET",
-        "https://apiv2.pushshift.io/reddit/submission/search/",
+        const.PUSHSHIFT_ENDPOINTS.SUBMISSION_SEARCH,
         params=params
     )
     return submissions.json()["data"]
