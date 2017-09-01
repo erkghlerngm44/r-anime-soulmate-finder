@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v4.0.0 (2017-09-??)
+* Make the `__version__` available in `__main__`
+* Add the `--quiet` flag, that'll hide all warnings and below
+* Don't use all FTFs this year by default, allow the number be specified, and
+  default to 10 if no preference
+* Add the `SUBMISSION_ID` metavar for `--submission`
+* Extract more constants and add those to `const.py`
+* Change PushShift's `/reddit/get/comment_ids` endpoint to the working one
+* **???**
+
+
 ## v3.0.0 (2017-08-03)
 * Write the affinity values straight to the file, and sort it once all the values
   have been retrieved, to make the script less memory intensive
