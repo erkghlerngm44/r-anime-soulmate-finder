@@ -1,3 +1,4 @@
 malaffinity >=2, <3
 praw >=4, <6
 requests >=2, <3
+unicodecsv==0.14.1

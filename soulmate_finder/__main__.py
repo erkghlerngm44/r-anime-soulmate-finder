@@ -2,13 +2,12 @@
 
 
 import argparse
-import csv
 import logging
-import os
 import re
 import time
 
 import malaffinity
+import unicodecsv as csv
 
 from . import const
 from .comment_sources import (
@@ -110,48 +109,40 @@ def handle_comment(comment):
     if not success:
         return
 
-    writer.writerow({
+    logger.debug("- Calculated affinity: {}%".format(affinity))
+
+    return writer.writerow({
         "reddit": author_name,
         "mal": username,
         "affinity": affinity,
         "shared": shared
     })
-    # Flush so progress is saved... progressively?
-    file.flush()
-
-    logger.debug("- Calculated affinity: {}%".format(affinity))
-
-    return
 
 
 def main(comments):
     global processed
     processed = set()
 
-    headers = const.HEADERS
-
-    # Open the affinities file if it exists.
-    if os.path.isfile("affinities.csv"):
-        with open("affinities.csv", "r") as f:
-            reader = csv.DictReader(f)
-
-            for row in reader:
-                user = row["reddit"]
-                processed.add(user)
-    else:
-        # Create the file now
-        with open("affinities.csv", "w") as f:
-            w = csv.DictWriter(f, fieldnames=headers, lineterminator="\n")
-            w.writeheader()
-
-    # Now open the file up for appending, and make the `DictWriter` a global
-    # so `handle_comment` can access it.
-    # TODO: GET RID OF THE BLOODY GLOBALS
-    global file
+    # TODO: GET RID OF THE BLOODY GLOBAL
     global writer
 
-    file = open("affinities.csv", "a")
-    writer = csv.DictWriter(file, fieldnames=headers, lineterminator="\n")
+    # Open the affinities file if it exists.
+    file = open("affinities.csv", "a+b", buffering=256)
+    writer = csv.DictWriter(file, fieldnames=const.HEADERS,
+                            lineterminator="\n")
+    if file.tell():
+        # File not empty, retrieve already calculated affinities
+        # and store usernames
+        file.seek(0)
+        # TODO: Do we really need to do this?
+        reader = csv.DictReader(file)
+
+        for row in reader:
+            user = row["reddit"]
+            processed.add(user)
+    else:
+        # File empty, write headers in
+        writer.writeheader()
 
     start_time = time.time()
 
@@ -159,6 +150,7 @@ def main(comments):
         try:
             for comment in comments:
                 handle_comment(comment)
+
             # Will only get called if using comments from a submission.
             # If processing from comment stream, KeyboardInterrupt
             # is the only way out.
@@ -173,8 +165,8 @@ def main(comments):
             logger.error("Error: {}".format(e))
             time.sleep(30)
 
-    # Kill the file so we can open it later
-    file.close()
+    # Just in case there's still some in the buffer
+    file.flush()
 
     end_time = time.time()
 
@@ -187,21 +179,19 @@ def main(comments):
 
     logger.info("\n" + "Sorting file...")
 
-    # Sort the affinities and write to file
-    with open("affinities.csv", "r") as f:
-        reader = csv.DictReader(f)
-        sorted_data = sorted(
-            reader,
-            key=lambda d: float(d["affinity"]),
-            reverse=True
-        )
+    # Seek to the start and read off the file to get all affinities
+    # and sort them
+    file.seek(0)
+    reader = csv.DictReader(file)
+    sorted_data = sorted(reader, key=lambda d: float(d["affinity"]),
+                         reverse=True)
 
-    with open("affinities.csv", "w") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=reader.fieldnames,
-            lineterminator="\n"
-        )
+    # Kill the file so we can reopen it later and overwrite it all
+    file.close()
+
+    with open("affinities.csv", "wb") as file:
+        writer = csv.DictWriter(file, fieldnames=const.HEADERS,
+                                lineterminator="\n")
         writer.writeheader()
         writer.writerows(sorted_data)
 
