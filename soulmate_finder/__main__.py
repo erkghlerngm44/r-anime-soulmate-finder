@@ -120,11 +120,11 @@ def handle_comment(comment):
 
 
 def main(comments):
-    global processed
-    processed = set()
-
     # TODO: GET RID OF THE BLOODY GLOBAL
+    global processed
     global writer
+
+    processed = set()
 
     # Open the affinities file if it exists.
     file = open("affinities.csv", "a+b", buffering=256)
