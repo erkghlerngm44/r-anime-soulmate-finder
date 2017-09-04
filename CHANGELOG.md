@@ -1,7 +1,7 @@
 # Changelog
 
 
-## v4.0.0 (2017-09-??)
+## v4.0.0 (2017-09-04)
 * Make the `__version__` available in `__main__`
 * Add the `--quiet` flag, that'll hide all warnings and below
 * Don't use all FTFs this year by default, allow the number be specified, and
