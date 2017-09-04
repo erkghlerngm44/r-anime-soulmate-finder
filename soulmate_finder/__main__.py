@@ -120,7 +120,7 @@ def handle_comment(comment):
 
 
 def main(comments):
-    # TODO: GET RID OF THE BLOODY GLOBAL
+    # TODO: GET RID OF THE BLOODY GLOBALS
     global processed
     global writer
 
@@ -130,6 +130,7 @@ def main(comments):
     file = open("affinities.csv", "a+b", buffering=256)
     writer = csv.DictWriter(file, fieldnames=const.HEADERS,
                             lineterminator="\n")
+
     if file.tell():
         # File not empty, retrieve already calculated affinities
         # and store usernames
@@ -150,7 +151,6 @@ def main(comments):
         try:
             for comment in comments:
                 handle_comment(comment)
-
             # Will only get called if using comments from a submission.
             # If processing from comment stream, KeyboardInterrupt
             # is the only way out.
@@ -172,12 +172,8 @@ def main(comments):
 
     runtime = round(end_time - start_time)
 
-    # Is "affinities" a word?
     logger.info("Script runtime: {} seconds".format(runtime))
-    # TODO: Check we can still do this with the new method
-    # print("Total affinities calculated: {}".format( len(affinities) ))
-
-    logger.info("\n" + "Sorting file...")
+    logger.info("Sorting file...")
 
     # Seek to the start and read off the file to get all affinities
     # and sort them
@@ -194,6 +190,8 @@ def main(comments):
                                 lineterminator="\n")
         writer.writeheader()
         writer.writerows(sorted_data)
+
+    logger.info("Total affinities calculated: {}".format(len(sorted_data)))
 
 
 if __name__ == "__main__":
