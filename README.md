@@ -6,6 +6,9 @@
 
 # r-anime-soulmate-finder
 
+[![GitHub release](https://img.shields.io/github/release/erkghlerngm44/r-anime-soulmate-finder.svg)](https://github.com/erkghlerngm44/r-anime-soulmate-finder/releases)
+[![PyUp](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/shield.svg)](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/)
+
 /r/anime soulmate finder / affinity gatherer.
 
 Why? I honestly don't know.
