@@ -5,10 +5,17 @@
 * Make the `__version__` available in `__main__`
 * Add the `--quiet` flag, that'll hide all warnings and below
 * Don't use all FTFs this year by default, allow the number be specified, and
-  default to 10 if no preference
+  default to 5 if no preference
 * Add the `SUBMISSION_ID` metavar for `--submission`
 * Extract more constants and add those to `const.py`
 * Change PushShift's `/reddit/get/comment_ids` endpoint to the working one
+* Use specific dependency versions in `requirements.txt`
+* Better file handling
+  * Write to file every 8-10 rows, instead of every row, which should speed up the script,
+    and make it more efficient
+  * Reduce the number of read/write open/close operations done on `affinities.csv`
+  * Remove `file` global, as it's no longer needed
+* Add `unicodecsv` as a dependency to handle bytes <=> str conversions in csv operations
 * **???**
 
 
