@@ -7,7 +7,7 @@ class DEFAULTS:  # noqa: E302
     SEARCH_COMMENT_BODY = False
     VERBOSE = False
 
-HEADERS = ["reddit", "mal", "affinity", "shared"]
+HEADERS = ["reddit", "mal", "affinity", "shared"]  # noqa: E305
 
 LOGGING_FORMAT = "%(message)s"
 
