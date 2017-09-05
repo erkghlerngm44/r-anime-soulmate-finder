@@ -128,7 +128,7 @@ def main(comments):
     processed = set()
 
     # Open the affinities file if it exists.
-    file = open("affinities.csv", "a+b", buffering=256)
+    file = open("affinities.csv", "a+b", buffering=buffer_size)
     writer = csv.DictWriter(file, fieldnames=const.HEADERS,
                             lineterminator="\n")
 
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     group.add_argument(
         "-s", "--submission",
         help="use the comments in a submission as the comment source",
-        metavar="SUBMISSION_ID"
+        metavar="SUBMISSION_ID", type=str
     )
     group.add_argument(
         "-f", "--ftf",
@@ -218,7 +218,7 @@ if __name__ == "__main__":
               "`LIMIT` specifies how many ftfs to use, working backwards "
               "from the current one (default 5)"),
         metavar="LIMIT",
-        nargs="?", const=DEFAULTS.FTF_LIMIT
+        nargs="?", const=DEFAULTS.FTF_LIMIT, type=int
     )
 
     # Verbose/quiet option
@@ -244,6 +244,13 @@ if __name__ == "__main__":
         action="store_true",
         default=DEFAULTS.SEARCH_COMMENT_BODY
     )
+    parser.add_argument(
+        "-z", "--buffer-size",
+        help=("buffer size of file to write to, in bytes. dictates how many "
+              "bytes to hold in buffer before writing to file (default: 256)."
+              " assume the average row to be written is around 30-35 bytes"),
+        metavar="SIZE", default=DEFAULTS.BUFFER_SIZE, type=int
+    )
 
     args = parser.parse_args()
 
@@ -266,6 +273,7 @@ if __name__ == "__main__":
 
     # Change the extra options globals
     search_comment_body = args.search_comment_body
+    buffer_size = args.buffer_size
 
     # Run it.
     main(comments)

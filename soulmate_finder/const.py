@@ -1,10 +1,11 @@
 VERSION = "4.0.0"
 
 class DEFAULTS:  # noqa: E302
+    BUFFER_SIZE = 256
     FTF_LIMIT = 5
-    VERBOSE = False
     QUIET = False
     SEARCH_COMMENT_BODY = False
+    VERBOSE = False
 
 HEADERS = ["reddit", "mal", "affinity", "shared"]
 
