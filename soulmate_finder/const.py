@@ -1,5 +1,11 @@
 VERSION = "4.0.0"
 
+class DEFAULTS:  # noqa: E302
+    FTF_LIMIT = 5
+    VERBOSE = False
+    QUIET = False
+    SEARCH_COMMENT_BODY = False
+
 HEADERS = ["reddit", "mal", "affinity", "shared"]
 
 LOGGING_FORMAT = "%(message)s"

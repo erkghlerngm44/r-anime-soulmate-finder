@@ -15,6 +15,7 @@ from .comment_sources import (
     get_comments_from_ftfs,
     get_comments_from_submission
 )
+DEFAULTS = const.DEFAULTS
 
 
 # Version
@@ -217,7 +218,7 @@ if __name__ == "__main__":
               "`LIMIT` specifies how many ftfs to use, working backwards "
               "from the current one (default 5)"),
         metavar="LIMIT",
-        nargs="?", const=5
+        nargs="?", const=DEFAULTS.FTF_LIMIT
     )
 
     # Verbose/quiet option
@@ -226,13 +227,13 @@ if __name__ == "__main__":
         "-v", "--verbose",
         help="be more verbose (print more about what's going on)",
         action="store_true",
-        default=False
+        default=DEFAULTS.VERBOSE
     )
     group2.add_argument(
         "-q", "--quiet",
         help="quiet (silent) mode (only display errors)",
         action="store_true",
-        default=False
+        default=DEFAULTS.QUIET
     )
 
     # Extra options
@@ -241,7 +242,7 @@ if __name__ == "__main__":
         help="search the comment body for a mal url if a user "
              "doesn't have a flair",
         action="store_true",
-        default=False
+        default=DEFAULTS.SEARCH_COMMENT_BODY
     )
 
     args = parser.parse_args()
