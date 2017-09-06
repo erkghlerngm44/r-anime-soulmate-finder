@@ -35,16 +35,18 @@ regex = re.compile(const.REGEX, re.I)
 pearson = malaffinity.MALAffinity(round=const.ROUND_AFFINITIES_TO)
 
 
-def handle_comment(comment):
-    if not comment.author:
-        return
-
+def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_BODY):  # noqa: E501
+    """
+    :param comment: praw.models.Comment comment
+    :param writer: csv.DictWriter writer
+    :param bool search_comment_body: search comment body for mal url
+        if no flair?
+    """
+    # We can't take the easy option of passing `**extra_options` to this
+    # as well, as it'd have to look up the `search_comment_body` value in
+    # the dict every time it processes a comment, which isn't very efficient
+    # and will slow the script down.
     author_name = comment.author.name
-
-    if author_name in processed:
-        return
-
-    processed.add(author_name)
 
     # stdout's too time taxing. Might as well save some
     # time and only display this only when this script comes across
@@ -120,10 +122,17 @@ def handle_comment(comment):
     })
 
 
-def main(comments):
-    # TODO: GET RID OF THE BLOODY GLOBALS
-    global processed
-    global writer
+def main(comments, **extra_opts):
+    """
+    :param comments: comments that can be iterated over
+    :param bool buffer_size: file buffer size in bytes
+    :param bool search_comment_body: search comment body for mal url
+        if no flair?
+    """
+    # Assign default values if options not specified
+    buffer_size = extra_opts.get("buffer_size", DEFAULTS.BUFFER_SIZE)
+    search_comment_body = extra_opts.get("search_comment_body",
+                                         DEFAULTS.SEARCH_COMMENT_BODY)
 
     processed = set()
 
@@ -148,15 +157,17 @@ def main(comments):
 
     start_time = time.time()
 
+    # TODO: Check if this loop is really necessary, I doubt any errors
+    # would come up from the `except Exception as e` bit.
     while True:
         try:
             for comment in comments:
-                handle_comment(comment)
-            # Will only get called if using comments from a submission.
-            # If processing from comment stream, KeyboardInterrupt
-            # is the only way out.
-            logger.info("\n\n" + "Processed all users. Breaking loop...")
-            break
+                if not comment.author or comment.author.name in processed:
+                    continue
+
+                processed.add(comment.author.name)
+
+                handle_comment(comment, writer, search_comment_body)
 
         except KeyboardInterrupt:
             logger.info("\n\n" + "KeyboardInterrupt. Breaking loop...")
@@ -165,6 +176,13 @@ def main(comments):
         except Exception as e:
             logger.error("Error: {}".format(e))
             time.sleep(30)
+
+        else:
+            # Will only run if using comments from a submission or FTFs.
+            # If processing from comment stream, KeyboardInterrupt
+            # is the only way out.
+            logger.info("\n\n" + "Processed all users. Breaking loop...")
+            break
 
     # Just in case there's still some in the buffer
     file.flush()
@@ -271,9 +289,5 @@ if __name__ == "__main__":
     elif args.ftf:
         comments = get_comments_from_ftfs(args.ftf)
 
-    # Change the extra options globals
-    search_comment_body = args.search_comment_body
-    buffer_size = args.buffer_size
-
     # Run it.
-    main(comments)
+    main(comments, **vars(args))
