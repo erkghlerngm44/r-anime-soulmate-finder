@@ -265,7 +265,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-z", "--buffer-size",
         help=("buffer size of file to write to, in bytes. dictates how many "
-              "bytes to hold in buffer before writing to file (default: 256)."
+              "bytes to hold in buffer before writing to file (default: 512)."
               " assume the average row to be written is around 30-35 bytes"),
         metavar="SIZE", default=DEFAULTS.BUFFER_SIZE, type=int
     )

@@ -1,7 +1,7 @@
 VERSION = "4.0.0"
 
 class DEFAULTS:  # noqa: E302
-    BUFFER_SIZE = 256
+    BUFFER_SIZE = 512
     FTF_LIMIT = 5
     QUIET = False
     SEARCH_COMMENT_BODY = False
