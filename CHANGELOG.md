@@ -1,6 +1,16 @@
 # Changelog
 
 
+## v4.1.0 (2017-09-08)
+* Create the `DEFAULTS` const class, and add default values to it
+* Add the optional `--buffer-size` (`-z`) argument to change the buffer size
+  when writing to `affinities.csv`
+* Remove all the unnecessary globals and have them passed to the relevant functions
+  when needed
+* Move the "processed all users" message to the `else` section of the `try/except`
+* Change the default buffer size from 256 to 512 bytes
+
+
 ## v4.0.0 (2017-09-04)
 * Make the `__version__` available in `__main__`
 * Add the `--quiet` flag, that'll hide all warnings and below
