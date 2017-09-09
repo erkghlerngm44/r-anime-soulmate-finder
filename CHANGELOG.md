@@ -1,6 +1,11 @@
 # Changelog
 
 
+## v4.1.1 (2017-09-09)
+* Bump the version from 4.0.0 to 4.1.1
+  * This wasn't done for 4.1.0, hence this release
+
+
 ## v4.1.0 (2017-09-08)
 * Create the `DEFAULTS` const class, and add default values to it
 * Add the optional `--buffer-size` (`-z`) argument to change the buffer size
