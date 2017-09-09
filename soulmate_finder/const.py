@@ -1,4 +1,4 @@
-VERSION = "4.1.1"
+VERSION = "4.2.0.dev0"
 
 class DEFAULTS:  # noqa: E302
     BUFFER_SIZE = 512
