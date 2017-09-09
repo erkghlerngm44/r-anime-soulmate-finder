@@ -35,10 +35,8 @@ or when you want to stop.
 1. Download/fork/clone/whatever this repo.
 
 2. [Create a Reddit client](https://www.reddit.com/prefs/apps) and put your
-   `client_id`, `client_secret`, as well as a unique `user_agent`
-   ([guidelines](https://github.com/reddit/reddit/wiki/API)) under the
-   `reddit` config in `praw.ini`. An example file can be found at
-   `praw.ini.example`.
+   `client_id` and `client_secret` under the `reddit` config in `praw.ini`.
+   An example file can be found at `praw.ini.example`.
 
 3. Install dependencies (see ["Dependencies"](#dependencies) below).
 

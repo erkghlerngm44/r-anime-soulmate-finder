@@ -49,7 +49,7 @@ def _retrieve_submissions(**params):
 
 
 def _create_reddit_instance():
-    return praw.Reddit("reddit")
+    return praw.Reddit("reddit", user_agent=const.REDDIT_USER_AGENT)
 
 
 def get_comment_stream():
