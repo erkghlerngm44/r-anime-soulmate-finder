@@ -1,4 +1,4 @@
-VERSION = "4.2.0.dev0"
+VERSION = "4.2.0"
 
 
 class DEFAULTS:  # noqa: E302

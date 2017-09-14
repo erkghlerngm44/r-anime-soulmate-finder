@@ -1,6 +1,11 @@
 # Changelog
 
 
+## v4.2.0 (2017-09-14)
+* Automatically specify a user agent when making Reddit requests, so this
+  doesn't have to be specified manually by the user running the script
+
+
 ## v4.1.1 (2017-09-09)
 * Bump the version from 4.0.0 to 4.1.1
   * This wasn't done for 4.1.0, hence this release
