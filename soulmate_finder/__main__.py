@@ -10,7 +10,7 @@ import malaffinity
 import unicodecsv as csv
 
 from . import const
-from .comment_sources import (
+from .sources import (
     get_comment_stream,
     get_comments_from_ftfs,
     get_comments_from_submission
