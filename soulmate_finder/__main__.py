@@ -260,8 +260,8 @@ if __name__ == "__main__":
     # Extra options
     parser.add_argument(
         "-b", "--search-comment-body",
-        help="search the comment body for a mal url if a user "
-             "doesn't have a flair",
+        help=("search the comment body for a mal url if a user "
+             "doesn't have a flair"),
         action="store_true",
         default=DEFAULTS.SEARCH_COMMENT_BODY
     )
