@@ -141,6 +141,9 @@ def main(comments, **extra_opts):
     writer = csv.DictWriter(file, fieldnames=const.HEADERS,
                             lineterminator="\n")
 
+    # This doesn't work properly sometimes.
+    # If it fails to write the headers in for some reason, you'll
+    # just have to write them in manually. :(
     if file.tell():
         # File not empty, retrieve already calculated affinities
         # and store usernames
