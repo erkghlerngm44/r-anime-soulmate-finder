@@ -87,16 +87,18 @@ $ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-co
 # Be more verbose. Best to use this with --stream
 $ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
 
-# Be more quiet. Best to use this when you will be processing a lot of users, and will be leaving the script
-# unsupervised, as printing each users' username out for no reason is quite time-taxing.
+# Be more quiet. Best to use this when you will be processing a lot of users,
+# and will be leaving the script unsupervised, as printing each users' username
+# out for no reason is quite time-taxing.
 $ python3 -m soulmate_finder MAL_USERNAME --ftf 10 --quiet
 
-# Change the buffer size in bytes. A small number means it writes to file more, which means if 
-# the script abruptly closes, you won't lose a lot of affinities, but it'll make the script run a lot slower.
-# Conversely, a high buffer size means it'll write to file less, which is helpful when you want to process
-# a lot of users quickly, but you'll lose a lot of progress if the script closes abruptly.
-# Default is 512 bytes - assume the average row that will get written per user is 30-35 bytes. With the default,
-# progress will be saved to file every 16 rows or so (512 / 32 == 16).
+# Change the buffer size in bytes. A small number means it writes to file more,
+# which means if the script abruptly closes, you won't lose a lot of affinities,
+# but it'll make the script run a lot slower. Conversely, a high buffer size means
+# it'll write to file less, which is helpful when you want to process a lot of users
+# quickly, but you'll lose a lot of progress if the script closes abruptly.
+# Default is 512 bytes - assume the average row that will get written per user is 30-35 bytes.
+# With the default, progress will be saved to file every 16 rows or so (512 / 32 == 16).
 python3 -m soulmate_finder MAL_USERNAME --ftf 10 --buffer-size 2048
 ```
 
