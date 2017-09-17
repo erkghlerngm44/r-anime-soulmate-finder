@@ -99,7 +99,7 @@ $ python3 -m soulmate_finder MAL_USERNAME --ftf 10 --quiet
 # quickly, but you'll lose a lot of progress if the script closes abruptly.
 # Default is 512 bytes - assume the average row that will get written per user is 30-35 bytes.
 # With the default, progress will be saved to file every 16 rows or so (512 / 32 == 16).
-python3 -m soulmate_finder MAL_USERNAME --ftf 10 --buffer-size 2048
+python3 -m soulmate_finder MAL_USERNAME --ftf 10 --buffer-size 2048  # ~ every 64 rows
 ```
 
 
