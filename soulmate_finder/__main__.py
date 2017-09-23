@@ -230,7 +230,11 @@ if __name__ == "__main__":
     )
     group.add_argument(
         "-s", "--submission",
-        help="use the comments in a submission as the comment source",
+        help=("use the comments in a submission as the comment source. "
+              "`SUBMISSION_ID` is the reddit submission id (6 letter "
+              "alphanumeric code between the '/comments/' and the thread "
+              "title in the comments url, e.g. "
+              "/r/anime/comments/{{CODE}}/free_talk_fridays...)"),
         metavar="SUBMISSION_ID", type=str
     )
     group.add_argument(
