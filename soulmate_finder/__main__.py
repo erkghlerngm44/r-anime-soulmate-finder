@@ -221,14 +221,19 @@ if __name__ == "__main__":
 
     parser.add_argument("mal_username")
 
+    # https://stackoverflow.com/a/45602952
     # Comment source
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
+    group = parser.add_argument_group(
+        "comment sources",
+        "source of comments, which will be processed"
+    )
+    mxg = group.add_mutually_exclusive_group(required=True)
+    mxg.add_argument(
         "-c", "--stream",
         help="use the comment stream as the comment source",
         action="store_true"
     )
-    group.add_argument(
+    mxg.add_argument(
         "-s", "--submission",
         help=("use the comments in a submission as the comment source. "
               "`SUBMISSION_ID` is the reddit submission id (6 letter "
@@ -237,24 +242,28 @@ if __name__ == "__main__":
               "/r/anime/comments/{{CODE}}/free_talk_fridays...)"),
         metavar="SUBMISSION_ID", type=str
     )
-    group.add_argument(
+    mxg.add_argument(
         "-f", "--ftf",
         help=("use the comments in ftfs as the comment source. "
               "`LIMIT` specifies how many ftfs to use, working backwards "
-              "from the current one (default 5)"),
+              "from the current one (default: 5)"),
         metavar="LIMIT",
         nargs="?", const=DEFAULTS.FTF_LIMIT, type=int
     )
 
     # Verbose/quiet option
-    group2 = parser.add_mutually_exclusive_group(required=False)
-    group2.add_argument(
+    group2 = parser.add_argument_group(
+        "logging/print options",
+        "controls the level of verbosity for this script"
+    )
+    mxg2 = group2.add_mutually_exclusive_group(required=False)
+    mxg2.add_argument(
         "-v", "--verbose",
-        help="be more verbose (print more about what's going on)",
+        help="be more talkative (print more about what's going on)",
         action="store_true",
         default=DEFAULTS.VERBOSE
     )
-    group2.add_argument(
+    mxg2.add_argument(
         "-q", "--quiet",
         help="quiet (silent) mode (only display errors)",
         action="store_true",
@@ -262,14 +271,15 @@ if __name__ == "__main__":
     )
 
     # Extra options
-    parser.add_argument(
+    group3 = parser.add_argument_group("extra options")
+    group3.add_argument(
         "-b", "--search-comment-body",
         help=("search the comment body for a mal url if a user "
              "doesn't have a flair"),
         action="store_true",
         default=DEFAULTS.SEARCH_COMMENT_BODY
     )
-    parser.add_argument(
+    group3.add_argument(
         "-z", "--buffer-size",
         help=("buffer size of file to write to, in bytes. dictates how many "
               "bytes to hold in buffer before writing to file (default: 512)."
