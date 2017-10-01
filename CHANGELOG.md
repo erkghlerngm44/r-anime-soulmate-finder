@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v4.3.0 (2017-10-01)
+* License this under MIT
+* Rename `comment_sources.py` to `sources.py`
+* Remove PEP8 checking, making this project **non-**PEP8 compliant
+* Add note about headers sometimes not getting written to file
+* Make the `--submission (-s)` `comment_source` argparse description more descriptive
+* Sort argparse flags into groups
+
+
 ## v4.2.0 (2017-09-14)
 * Automatically specify a user agent when making Reddit requests, so this
   doesn't have to be specified manually by the user running the script
