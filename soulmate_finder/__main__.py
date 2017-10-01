@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     # Verbose/quiet option
     group2 = parser.add_argument_group(
-        "logging options",
+        "logging/print options",
         "controls the level of verbosity for this script"
     )
     mxg2 = group2.add_mutually_exclusive_group(required=False)
