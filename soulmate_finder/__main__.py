@@ -35,7 +35,7 @@ regex = re.compile(const.REGEX, re.I)
 pearson = malaffinity.MALAffinity(round=const.ROUND_AFFINITIES_TO)
 
 
-def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_BODY):  # noqa: E501
+def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_BODY):
     """
     :param comment: praw.models.Comment comment
     :param writer: csv.DictWriter writer
