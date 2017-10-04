@@ -158,32 +158,27 @@ def main(comments, **extra_opts):
 
     start_time = time.time()
 
-    # TODO: Check if this loop is really necessary, I doubt any errors
-    # would come up from the `except Exception as e` bit.
-    while True:
-        try:
-            for comment in comments:
-                if not comment.author or comment.author.name in processed:
-                    continue
+    try:
+        for comment in comments:
+            if not comment.author or comment.author.name in processed:
+                continue
 
-                processed.add(comment.author.name)
+            processed.add(comment.author.name)
 
-                handle_comment(comment, writer, search_comment_body)
+            handle_comment(comment, writer, search_comment_body)
 
-        except KeyboardInterrupt:
-            logger.info("\n\n" + "KeyboardInterrupt. Breaking loop...")
-            break
+    except KeyboardInterrupt:
+        logger.info("\n\n" + "KeyboardInterrupt.")
 
-        except Exception as e:
-            logger.error("Error: {}".format(e))
-            time.sleep(30)
+    except Exception as e:
+        logger.error("Error: {}".format(e))
+        logger.exception(e)
 
-        else:
-            # Will only run if using comments from a submission or FTFs.
-            # If processing from comment stream, KeyboardInterrupt
-            # is the only way out.
-            logger.info("\n\n" + "Processed all users. Breaking loop...")
-            break
+    else:
+        # Will only run if using comments from a submission or FTFs.
+        # If processing from comment stream, KeyboardInterrupt
+        # is the only way out.
+        logger.info("\n\n" + "Processed all users.")
 
     # Just in case there's still some in the buffer
     file.flush()
