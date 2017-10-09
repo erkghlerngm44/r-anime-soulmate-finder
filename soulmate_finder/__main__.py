@@ -11,9 +11,9 @@ import unicodecsv as csv
 
 from . import const
 from .sources import (
-    get_comment_stream,
-    get_comments_from_ftfs,
-    get_comments_from_submission
+    comment_stream,
+    ftfs,
+    submission
 )
 DEFAULTS = const.DEFAULTS
 
@@ -293,11 +293,11 @@ if __name__ == "__main__":
 
     # Choose either comment stream or comments from submission.
     if args.stream:
-        comments = get_comment_stream()
+        comments = comment_stream()
     elif args.submission:
-        comments = get_comments_from_submission(args.submission)
+        comments = submission(args.submission)
     elif args.ftf:
-        comments = get_comments_from_ftfs(args.ftf)
+        comments = ftfs(args.ftf)
 
     # Run it.
     main(comments, **vars(args))
