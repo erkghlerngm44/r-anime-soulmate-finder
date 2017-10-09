@@ -52,13 +52,13 @@ def _create_reddit_instance():
     return praw.Reddit("reddit", user_agent=const.REDDIT_USER_AGENT)
 
 
-def get_comment_stream():
+def comment_stream():
     reddit = _create_reddit_instance()
 
     return reddit.subreddit("anime").stream.comments()
 
 
-def get_comments_from_submission(submission_id):
+def submission(submission_id):
     reddit = _create_reddit_instance()
 
     comments = _retrieve_comment_ids(submission_id)
@@ -66,7 +66,7 @@ def get_comments_from_submission(submission_id):
     return reddit.info(comments)
 
 
-def get_comments_from_ftfs(limit=10):
+def ftfs(limit=10):
     reddit = _create_reddit_instance()
 
     ftfs = _retrieve_submissions(q="Free Talk Fridays", subreddit="anime",

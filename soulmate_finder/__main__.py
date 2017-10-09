@@ -10,11 +10,7 @@ import malaffinity
 import unicodecsv as csv
 
 from . import const
-from .sources import (
-    get_comment_stream,
-    get_comments_from_ftfs,
-    get_comments_from_submission
-)
+from . import sources
 DEFAULTS = const.DEFAULTS
 
 
@@ -293,11 +289,11 @@ if __name__ == "__main__":
 
     # Choose either comment stream or comments from submission.
     if args.stream:
-        comments = get_comment_stream()
+        comments = sources.comment_stream()
     elif args.submission:
-        comments = get_comments_from_submission(args.submission)
+        comments = sources.submission(args.submission)
     elif args.ftf:
-        comments = get_comments_from_ftfs(args.ftf)
+        comments = sources.ftfs(args.ftf)
 
     # Run it.
     main(comments, **vars(args))
