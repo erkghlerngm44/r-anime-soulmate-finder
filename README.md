@@ -125,9 +125,9 @@ $ python3 -m soulmate_finder YOUR_MAL_USERNAME --submission SUBMISSION_ID
 ```
 
 If you are running this on a "Find your MAL soulmate" thread (or something similar),
-where, sometimes, users do not put the URL to their MAL profile in their flair, you
-may want to run this with the `--search-comment-body` (`-b`) argument, so the comment
-body is searched if there is no MAL URL in their flair.
+where, sometimes, users do not put the URL to their MAL profile in their flair, but
+post it in their comment, you may want to run this with the `--search-comment-body`
+(`-b`) argument, so the comment body is searched if there is no MAL URL in their flair.
 
 This can be done as follows:
 
