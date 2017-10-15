@@ -179,7 +179,8 @@ $ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf 10
 
 If you are using this option, you may want to have the script process the comments as fast as
 possible, so as to reduce the script runtime. You may want to consider using the ``--quiet``
-(`-q`) argument, so only errors get printed out.
+(`-q`) argument, so only errors get printed out, so no unnecessary time-taxing printing goes
+on.
 
 This can be done as follows:
 
