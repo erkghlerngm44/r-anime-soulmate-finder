@@ -146,7 +146,7 @@ $ python3 -m soulmate_finder YOUR_MAL_USERNAME --stream
 ```
 
 **NOTE: As the stream never ends, you'll have to Press CTRL+C when you want to stop processing
-  users, otherwise the script will keep going on forever**
+  users, otherwise the script will keep going on forever.**
 
 If you are using this option, you're probably not in a rush, and so might want to use the
 `--verbose` (`-v`) argument, so you can see what the script is doing as it does it. This
