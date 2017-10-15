@@ -221,7 +221,8 @@ I then got over it, accepted that I had shit taste and renamed everything to `so
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
 
-[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44) 
+[Create an issue](https://github.com/erkghlerngm44/r-anime-soulmate-finder/issues/new)
+or [send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44)
 and I'll have a look.
 
 #### Q: Your code/documentation/taste is shit!
