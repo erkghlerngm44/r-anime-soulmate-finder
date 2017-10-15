@@ -216,7 +216,7 @@ but after running this script,
 [my kokoro broke](https://github.com/erkghlerngm44/affinity-gatherer/blob/v1.1.0/README.md#q-why-wasnt-this-called-something-snazzy-like-ranime-soulmate-finder)
 and I gave up on the idea.
 
-I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`
+I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`.
 
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
