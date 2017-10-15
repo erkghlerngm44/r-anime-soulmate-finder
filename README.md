@@ -9,7 +9,7 @@
 
 Credit to TheEnigmaBlade for their 
 [soulmate finder script](https://gist.github.com/TheEnigmaBlade/24205c62280b056fde3d),
-which gave me a few ideas and the code for parts of this script.
+which gave me a few ideas for parts of this script.
 
 
 ## What do?
