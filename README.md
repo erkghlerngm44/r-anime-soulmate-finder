@@ -108,8 +108,8 @@ extra options:
 ## Comment Sources
 
 Every comment from your chosen comment source gets processed, and for each comment, the
-author's "flair text" (which contains their MAL Profile URL) is extracted, and affinity
-with that MAL user is calculated.
+author's "flair text" (which contains their MAL Profile/AnimeList URL) is extracted,
+and affinity with that MAL user is calculated.
 
 There are currently three comment sources that can be used:
 
