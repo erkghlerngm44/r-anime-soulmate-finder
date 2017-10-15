@@ -1,29 +1,23 @@
-[![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/just-plain-nasty.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-
-
 # r-anime-soulmate-finder
 
 [![GitHub release](https://img.shields.io/github/release/erkghlerngm44/r-anime-soulmate-finder.svg)](https://github.com/erkghlerngm44/r-anime-soulmate-finder/releases)
+[![Github commits (since latest release)](https://img.shields.io/github/commits-since/erkghlerngm44/r-anime-soulmate-finder/latest.svg)]()
 [![PyUp](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/shield.svg)](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/)
+[![license](https://img.shields.io/github/license/erkghlerngm44/r-anime-soulmate-finder.svg)](/LICENSE)
 
 /r/anime soulmate finder / affinity gatherer.
 
-Why? I honestly don't know.
-
 Credit to TheEnigmaBlade for their 
 [soulmate finder script](https://gist.github.com/TheEnigmaBlade/24205c62280b056fde3d),
-which gave me a few ideas and the code for parts of this script.
+which gave me a few ideas for parts of this script.
 
 
 ## What do?
 
-Processes comments from a chosen comment source, finds the comment author's
-MAL username (if they've specified it in their flair), retrieve their list,
-calculate affinity and store the result. Dump results into a .csv when done,
-or when you want to stop.
+Processes comments from a [chosen comment source](#comment-sources), finds the
+comment author's MAL username (if they've specified it in their flair), retrieve
+their list, calculate affinity and store the result. Dump results into a .csv
+when done, or when you want to stop.
 
 
 ## Setup
@@ -48,6 +42,7 @@ or when you want to stop.
 * MALAffinity
 * PRAW
 * Requests
+* UnicodeCSV
 
 For the lazy:
 
@@ -56,129 +51,159 @@ For the lazy:
 
 ## Usage
 
+```shell
+$ python3 -m soulmate_finder --help
+usage: __main__.py [-h] (-c | -s SUBMISSION_ID | -f [LIMIT]) [-v | -q] [-b]
+                   [-z SIZE]
+                   mal_username
+
+/r/anime soulmate finder
+
+positional arguments:
+  mal_username
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+comment sources:
+  source of comments, which will be processed
+
+  -c, --stream          use the comment stream as the comment source
+  -s SUBMISSION_ID, --submission SUBMISSION_ID
+                        use the comments in a submission as the comment
+                        source. `SUBMISSION_ID` is the reddit submission id (6
+                        letter alphanumeric code between the '/comments/' and
+                        the thread title in the comments url, e.g.
+                        /r/anime/comments/{{CODE}}/free_talk_fridays...)
+  -f [LIMIT], --ftf [LIMIT]
+                        use the comments in ftfs as the comment source.
+                        `LIMIT` specifies how many ftfs to use, working
+                        backwards from the current one (default: 5)
+
+logging/print options:
+  controls the level of verbosity for this script
+
+  -v, --verbose         be more talkative (print more about what's going on)
+  -q, --quiet           quiet (silent) mode (only display errors)
+
+extra options:
+  -b, --search-comment-body
+                        search the comment body for a mal url if a user
+                        doesn't have a flair
+  -z SIZE, --buffer-size SIZE
+                        buffer size of file to write to, in bytes. dictates
+                        how many bytes to hold in buffer before writing to
+                        file (default: 512). assume the average row to be
+                        written is around 30-35 bytes
+```
+
 **NOTE: The `python3` part may be different for you, depending on your OS and/or Python install.
   The variants (IIRC) are `py`, `python`, `python3` and `py -3`. Try each, only specifying the argument
   `--version` at the end, until your terminal tells you it's using `Python 3.x.x`, then use that in place
   of `python3`.**
 
-These options can be found by running `python3 -m soulmate_finder -h`.
+
+## Comment Sources
+
+Every comment from your chosen comment source gets processed, and for each comment, the
+author's "flair text" (which contains their MAL Profile/AnimeList URL) is extracted,
+and affinity with that MAL user is calculated.
+
+There are currently three comment sources that can be used:
+
+### A Thread/Submission
+
+A `SUBMISSION_ID` is passed when specifying this option, and all comments in that
+submission are processed.
+
+Invocation:
 
 ```shell
-
-# Using the comment stream as the source of comments
-$ python3 -m soulmate_finder MAL_USERNAME --stream
-
-# Or using a submission as the source of comments
-$ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID
-
-# Or using Free Talk Fridays (FTFs) as the source of comments (by default, the latest 5 will be used)
-$ python3 -m soulmate_finder MAL_USERNAME --ftf
-# Use more FTFs...
-$ python3 -m soulmate_finder MAL_USERNAME --ftf LIMIT
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --submission SUBMISSION_ID
 ```
 
-Optional flags
+If you are running this on a "Find your MAL soulmate" thread (or something similar),
+where, sometimes, users do not put the URL to their MAL profile in their flair, but
+post it in their comment, you may want to run this with the `--search-comment-body`
+(`-b`) argument, so the comment body is searched if there is no MAL URL in their flair.
+
+This can be done as follows:
 
 ```shell
-
-# Search the comment body for a MAL link if the user has no flair
-$ python3 -m soulmate_finder MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
-
-# Be more verbose. Best to use this with --stream
-$ python3 -m soulmate_finder MAL_USERNAME --stream --verbose
-
-# Be more quiet. Best to use this when you will be processing a lot of users,
-# and will be leaving the script unsupervised, as printing each users' username
-# out for no reason is quite time-taxing.
-$ python3 -m soulmate_finder MAL_USERNAME --ftf 10 --quiet
-
-# Change the buffer size in bytes. A small number means it writes to file more,
-# which means if the script abruptly closes, you won't lose a lot of affinities,
-# but it'll make the script run a lot slower. Conversely, a high buffer size means
-# it'll write to file less, which is helpful when you want to process a lot of users
-# quickly, but you'll lose a lot of progress if the script closes abruptly.
-# Default is 512 bytes - assume the average row that will get written per user is 30-35 bytes.
-# With the default, progress will be saved to file every 16 rows or so (512 / 32 == 16).
-$ python3 -m soulmate_finder MAL_USERNAME --ftf 10 --buffer-size 2048  # ~ every 64 rows
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --submission SUBMISSION_ID --search-comment-body
 ```
 
+### The Comment Stream
 
-## Converting the CSV into a Reddit-Friendly table
-Type the `code` bits exactly into the terminal, and only press [ENTER] when instructed,
-unless you know what you're doing
+Comments get processed as they are posted onto the subreddit, in near-real-time.
 
-1. `cp affinities.csv affinities.txt` [ENTER]
-2. `vim affinities.txt` [ENTER]
-3. `:%s/,/|/g` [ENTER]
-4. `:%s/_/\\_/g` [ENTER]
-5. `gg`
-6. `o`
-7. `:--|:--|:-:|:-:`
-8. Press the [ESC] key
-9. `:wq` [ENTER]
+Invocation:
 
-Check `affinities.txt` for your Reddit-Friendly table!
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --stream
+```
 
+**NOTE: As the stream never ends, you'll have to Press CTRL+C when you want to stop processing
+  users, otherwise the script will keep going on forever.**
 
-## Source-specific notes
+If you are using this option, you're probably not in a rush, and so might want to use the
+`--verbose` (`-v`) argument, so you can see what the script is doing as it does it. This
+isn't enabled by default, as printing is time-taxing.
 
-### Comment Stream
-* All comments posted in the subreddit after the script is run are processed.
+This can be done as follows:
 
-* When you've had enough and want to stop it, Press `CTRL+C` (`^C`) to
-  stop the program. If you don't stop it, it'll keep running forever and ever.
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --stream --verbose
+```
 
-* Probably a bad idea to run this when the sub's less active. You won't get
-  that many results if this is the case.
+### Past Free Talk Friday (FTF) Threads
 
-### Comments from a Submission
-* This is especially useful if being run in a big thread, like FTF or
-  one of the "Find your MAL soulmate" ones.
+Comments from past FTFs are processed.
 
-* Comment IDs are collected through the [Pushshift API](https://pushshift.io/).
+Invocation:
 
-  This method allows all comments in a thread to be retrieved faster than PRAW's 
-  `reddit.submission(id="SUBMISSION").comments.replace_more(limit=None)`,
-  at a rate of 100 comments per second. This script takes longer than that
-  to process each comment, so don't expect it to end that quickly.
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf
+```
 
-  **NOTE**: The [Legendary FTF](https://redd.it/5p0gfb) took ~300 seconds
-  (5 minutes) to process, so expect similar times for threads with
-  the same amount of comments.
+The above will process comments from the 5 most recent FTFs. A `LIMIT` can be passed as well,
+so you can specify how many FTFs you want to process (working backwards from the current one).
 
-* The script will exit when there are no more comments left to process in the
-  specified thread. If the script needs to be terminated before that,
-  press `CTRL+C` (`^C`)
-  
-### Comments from FTFs
-* Basically the same as "comments from a submission", but collects comments from previous
-  FTFs to be processed.
+This can be done as follows (to use the 10 most recent FTFs):
 
-* The number of FTFs to use can be specified with the optional `LIMIT` argument. By default,
-  the latest 10 will be used.
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf 10
+```
 
-* Will make a few calls to the Pushshift and Reddit API when started up, with a
-  5 second timeout between requests.
-  
-* Obviously, the more FTFs you choose to process, the longer the script will take to complete.
+If you are using this option, you may want to have the script process the comments as fast as
+possible, so as to reduce the script runtime. You may want to consider using the ``--quiet``
+(`-q`) argument, so only errors get printed out, so no unnecessary time-taxing printing goes
+on.
 
+This can be done as follows:
 
-## More Notes
-* CTRL+C terminates the script and saves all the calculations to `affinity.csv`,
-  which will be created in the same directory as the main script.
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf --quiet
+```
 
-* When using `--search-comment-body`, the comment body will only be searched if
-  the comment author doesn't have a MAL flair.
-  
-  This obviously has its flaws, but I really don't want to rewrite that section. Sorry.
+Note that a `LIMIT` still can be passed after the `--ftf` if needed.
 
-* Method used to calculate affinity has been tested on a 
-  [modified version](https://github.com/erkghlerngm44/malaffinity-tests) of this script, 
-  and in all cases, the affinity calculated using this method matched the affinity 
-  that comes up when I visit any of the users' profile.
-  
-  To see the code behind this, go to 
-  [erkghlerngm44/malaffinity](https://github.com/erkghlerngm44/malaffinity).
+Also note that the "buffer size" can also be changed.
+
+> A small buffer size means the script writes to file more, which means if the script
+  abruptly closes, you won't lose a lot of affinities, but it'll make the script run a
+  lot slower. Conversely, a high buffer size means the script will write to file less,
+  which is helpful when you want to process a lot of users quickly, but you'll lose a
+  lot of progress if the script closes abruptly.
+
+The default is 512 bytes. Assume the average row that will get written per user is around 32 bytes.
+With the default, progress will be saved to file every 16 rows or so (512 / 32 == 16).
+
+This can be changed as follows:
+
+```shell
+$ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf --buffer-size 2048  # ~ every 64 rows
+```
 
 
 ## FAQ
@@ -189,12 +214,13 @@ but after running this script,
 [my kokoro broke](https://github.com/erkghlerngm44/affinity-gatherer/blob/v1.1.0/README.md#q-why-wasnt-this-called-something-snazzy-like-ranime-soulmate-finder)
 and I gave up on the idea.
 
-I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`
+I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`.
 
 #### Q: It's broken!
 ~~Have you tried turning it off and on again?~~
 
-[Send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44) 
+[Create an issue](https://github.com/erkghlerngm44/r-anime-soulmate-finder/issues/new)
+or [send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44)
 and I'll have a look.
 
 #### Q: Your code/documentation/taste is shit!
