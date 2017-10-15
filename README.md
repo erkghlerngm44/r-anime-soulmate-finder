@@ -16,10 +16,10 @@ which gave me a few ideas and the code for parts of this script.
 
 ## What do?
 
-Processes comments from a [chosen comment source](), finds the comment author's
-MAL username (if they've specified it in their flair), retrieve their list,
-calculate affinity and store the result. Dump results into a .csv when done,
-or when you want to stop.
+Processes comments from a [chosen comment source](#comment-sources), finds the
+comment author's MAL username (if they've specified it in their flair), retrieve
+their list, calculate affinity and store the result. Dump results into a .csv
+when done, or when you want to stop.
 
 
 ## Setup
