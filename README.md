@@ -54,7 +54,7 @@ For the lazy:
 ```shell
 $ python3 -m soulmate_finder --help
 usage: __main__.py [-h] (-c | -s SUBMISSION_ID | -f [LIMIT]) [-v | -q] [-b]
-                   [-z SIZE]
+                   [-z SIZE] [-t TIMEOUT]
                    mal_username
 
 /r/anime soulmate finder
@@ -95,6 +95,10 @@ extra options:
                         how many bytes to hold in buffer before writing to
                         file (default: 512). assume the average row to be
                         written is around 30-35 bytes
+  -t TIMEOUT, --timeout TIMEOUT
+                        terminate the script after a specified amount of time
+                        (in seconds), if the comment source hasn't already
+                        been fully processed by then (default: never)
 ```
 
 **NOTE: The `python3` part may be different for you, depending on your OS and/or Python install.
