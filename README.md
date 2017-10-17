@@ -217,7 +217,7 @@ and I gave up on the idea.
 I then got over it, accepted that I had shit taste and renamed everything to `soulmate-finder`.
 
 #### Q: It's broken!
-~~Have you tried turning it off and on again?~~
+I'm sorry, the code here is... shoddy... at best and I make it even worse every time I touch it. :(
 
 [Create an issue](https://github.com/erkghlerngm44/r-anime-soulmate-finder/issues/new)
 or [send me a message](https://www.reddit.com/message/compose/?to=erkghlerngm44)
