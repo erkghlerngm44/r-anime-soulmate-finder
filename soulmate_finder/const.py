@@ -6,6 +6,7 @@ class DEFAULTS:
     FTF_LIMIT = 5
     QUIET = False
     SEARCH_COMMENT_BODY = False
+    TIMEOUT = 9e999  # (inf)
     VERBOSE = False
 
 HEADERS = ["reddit", "mal", "affinity", "shared"]

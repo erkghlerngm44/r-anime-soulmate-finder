@@ -124,11 +124,14 @@ def main(comments, **extra_opts):
     :param bool buffer_size: file buffer size in bytes
     :param bool search_comment_body: search comment body for mal url
         if no flair?
+    :param int timeout: timeout after n seconds if comment source hasn't
+        already been depleted
     """
     # Assign default values if options not specified
     buffer_size = extra_opts.get("buffer_size", DEFAULTS.BUFFER_SIZE)
     search_comment_body = extra_opts.get("search_comment_body",
                                          DEFAULTS.SEARCH_COMMENT_BODY)
+    timeout = extra_opts.get("timeout", DEFAULTS.TIMEOUT)
 
     processed = set()
 
@@ -156,6 +159,11 @@ def main(comments, **extra_opts):
 
     try:
         for comment in comments:
+            if (time.time() - start_time) >= timeout:
+                # Timeout exceeded. Stop processing any more comments
+                logger.info("Timeout exceeded. Not processing any more comments.")
+                break
+
             if not comment.author or comment.author.name in processed:
                 continue
 
@@ -264,7 +272,7 @@ if __name__ == "__main__":
     group3.add_argument(
         "-b", "--search-comment-body",
         help=("search the comment body for a mal url if a user "
-             "doesn't have a flair"),
+              "doesn't have a flair"),
         action="store_true",
         default=DEFAULTS.SEARCH_COMMENT_BODY
     )
@@ -274,6 +282,13 @@ if __name__ == "__main__":
               "bytes to hold in buffer before writing to file (default: 512)."
               " assume the average row to be written is around 30-35 bytes"),
         metavar="SIZE", default=DEFAULTS.BUFFER_SIZE, type=int
+    )
+    group3.add_argument(
+        "-t", "--timeout",
+        help=("terminate the script after a specified amount of time "
+              "(in seconds), if the comment source hasn't already been "
+              "fully processed by then (default: never)"),
+        default=DEFAULTS.TIMEOUT, type=int
     )
 
     args = parser.parse_args()
