@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/release/erkghlerngm44/r-anime-soulmate-finder.svg)](https://github.com/erkghlerngm44/r-anime-soulmate-finder/releases)
 [![Github commits (since latest release)](https://img.shields.io/github/commits-since/erkghlerngm44/r-anime-soulmate-finder/latest.svg)]()
 [![PyUp](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/shield.svg)](https://pyup.io/repos/github/erkghlerngm44/r-anime-soulmate-finder/)
-[![license](https://img.shields.io/github/license/erkghlerngm44/r-anime-soulmate-finder.svg)](/LICENSE)
+[![License](https://img.shields.io/github/license/erkghlerngm44/r-anime-soulmate-finder.svg)](/LICENSE)
 
 /r/anime soulmate finder / affinity gatherer.
 
