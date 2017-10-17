@@ -159,6 +159,7 @@ def main(comments, **extra_opts):
         for comment in comments:
             if (time.time() - start_time) >= timeout:
                 # Timeout exceeded. Stop processing any more comments
+                logger.info("Timeout exceeded. Not processing any more comments.")
                 break
 
             if not comment.author or comment.author.name in processed:
