@@ -124,6 +124,8 @@ def main(comments, **extra_opts):
     :param bool buffer_size: file buffer size in bytes
     :param bool search_comment_body: search comment body for mal url
         if no flair?
+    :param int timeout: Timeout after n seconds if comment source hasn't
+        already been depleted
     """
     # Assign default values if options not specified
     buffer_size = extra_opts.get("buffer_size", DEFAULTS.BUFFER_SIZE)
