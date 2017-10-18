@@ -1,4 +1,4 @@
-VERSION = "4.4.0.dev0"
+VERSION = "4.4.0"
 
 
 class DEFAULTS:

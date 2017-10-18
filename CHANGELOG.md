@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v4.4.0 (2017-10-18)
+* Flush the affinities file after writing the headers to it, so the headers
+  get written in
+* Remove the pointless `while` loop, encasing most of the code
+* Rename the comment source functions (in `sources.py`), to make their names
+  nicer and easier to type
+* Rewrite the readme
+* Add the `--timeout` (`-t`) argument, to terminate the script after a certain
+  amount of time, if needed
+
+
 ## v4.3.0 (2017-10-01)
 * License this under MIT
 * Rename `comment_sources.py` to `sources.py`
