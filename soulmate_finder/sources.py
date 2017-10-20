@@ -66,7 +66,7 @@ def submission(submission_id):
     return reddit.info(comments)
 
 
-def ftfs(limit=10):
+def ftfs(limit=const.DEFAULTS.FTF_LIMIT):
     reddit = _create_reddit_instance()
 
     ftfs = _retrieve_submissions(q="Free Talk Fridays", subreddit="anime",
