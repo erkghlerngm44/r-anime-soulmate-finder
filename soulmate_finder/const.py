@@ -3,7 +3,7 @@ VERSION = "4.5.0.dev0"
 
 class DEFAULTS:
     BUFFER_SIZE = 512
-    FTF_LIMIT = 5
+    FTF_LIMIT = 1
     QUIET = False
     SEARCH_COMMENT_BODY = False
     TIMEOUT = 9e999  # (inf)
