@@ -78,7 +78,7 @@ comment sources:
   -f [LIMIT], --ftf [LIMIT]
                         use the comments in ftfs as the comment source.
                         `LIMIT` specifies how many ftfs to use, working
-                        backwards from the current one (default: 5)
+                        backwards from the current one (default: 1)
 
 logging/print options:
   controls the level of verbosity for this script
