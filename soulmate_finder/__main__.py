@@ -122,16 +122,29 @@ def main(comments, **extra_opts):
     """
     :param comments: comments that can be iterated over
     :param bool buffer_size: file buffer size in bytes
+    :param bool quiet: be more quiet. mutually exclusive with `verbose`
     :param bool search_comment_body: search comment body for mal url
         if no flair?
     :param int timeout: timeout after n seconds if comment source hasn't
         already been depleted
+    :param bool verbose: be more talkative. mutually exclusive with `quiet`
     """
     # Assign default values if options not specified
     buffer_size = extra_opts.get("buffer_size", DEFAULTS.BUFFER_SIZE)
     search_comment_body = extra_opts.get("search_comment_body",
                                          DEFAULTS.SEARCH_COMMENT_BODY)
     timeout = extra_opts.get("timeout", DEFAULTS.TIMEOUT)
+
+    # Logging level change, either to print more out, print less out,
+    # or do nothing, based on `verbose` and `quiet` var values
+    quiet = extra_opts.get("quiet", DEFAULTS.QUIET)
+    verbose = extra_opts.get("verbose", DEFAULTS.VERBOSE)
+
+    # Set logging level to `DEBUG` if verbose flag specified
+    if quiet:
+        logger.setLevel(logging.ERROR)
+    elif verbose:
+        logger.setLevel(logging.DEBUG)
 
     processed = set()
 
@@ -295,12 +308,6 @@ if __name__ == "__main__":
 
     # Set pearson stuff up.
     pearson.init(args.mal_username)
-
-    # Set logging level to `DEBUG` if verbose flag specified
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
-    elif args.quiet:
-        logger.setLevel(logging.ERROR)
 
     # Choose either comment stream or comments from submission.
     if args.stream:
