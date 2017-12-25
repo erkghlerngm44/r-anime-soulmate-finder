@@ -52,10 +52,10 @@ def _create_reddit_instance():
     return praw.Reddit("reddit", user_agent=const.REDDIT_USER_AGENT)
 
 
-def comment_stream():
+def comment_stream(subreddit="anime"):
     reddit = _create_reddit_instance()
 
-    return reddit.subreddit("anime").stream.comments()
+    return reddit.subreddit(subreddit).stream.comments()
 
 
 def submission(submission_id):
