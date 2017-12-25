@@ -88,3 +88,7 @@ def ftfs(limit=const.DEFAULTS.FTF_LIMIT):
 
     # Sorry, reddit servers
     return reddit.info(comments)
+
+
+# Aliases
+stream = comment_stream
