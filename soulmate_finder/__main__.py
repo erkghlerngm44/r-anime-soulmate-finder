@@ -15,8 +15,11 @@ if __name__ == "__main__":
     mxg = group.add_mutually_exclusive_group(required=True)
     mxg.add_argument(
         "-c", "--stream",
-        help="use the comment stream as the comment source",
-        action="store_true"
+        help=("use the comment stream from a subreddit as the comment source. "
+              "`SUBREDDIT` is the name of the subreddit to use, without the "
+              "/r/ prefix (default: anime)"),
+        metavar="SUBREDDIT", nargs="?",
+        const=DEFAULTS.STREAM_SUBREDDIT, type=str
     )
     mxg.add_argument(
         "-s", "--submission",
