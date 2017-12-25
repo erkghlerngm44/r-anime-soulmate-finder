@@ -107,6 +107,27 @@ extra options:
   of `python3`.**
 
 
+## Importing the package
+
+I don't know why anyone would do this, but it *is* possible.
+
+```python
+import soulmate_finder as sf
+
+# Load up your scores into the `malaffinity.MALAffinity` class
+sf.pearson.init("MAL_USERNAME")
+
+# Choose comment source to process (pick one)
+comments = sf.sources.comment_stream()
+                     .submission("SUBMISSION_ID")
+                     .ftfs(limit=LIMIT)
+
+# Pass to the `main` function and hey presto
+sf.main(comments, ...)
+# A list of optional arguments can be found in the `main` function's docstring.
+```
+
+
 ## Comment Sources
 
 Every comment from your chosen comment source gets processed, and for each comment, the
