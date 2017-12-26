@@ -6,6 +6,7 @@ class DEFAULTS:
     FTF_LIMIT = 1
     QUIET = False
     SEARCH_COMMENT_BODY = False
+    STREAM_SUBREDDIT = "anime"
     TIMEOUT = 9e999  # (inf)
     VERBOSE = False
 
