@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     # Choose either comment stream or comments from submission.
     if args.stream:
-        comments = sources.comment_stream()
+        comments = sources.comment_stream(args.stream)
     elif args.submission:
         comments = sources.submission(args.submission)
     elif args.ftf:
