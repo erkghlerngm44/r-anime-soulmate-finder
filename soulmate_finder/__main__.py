@@ -16,7 +16,7 @@ if __name__ == "__main__":
     mxg.add_argument(
         "-c", "--stream",
         help="use the /r/anime comment stream as the comment source",
-        action="store_true"
+        action="store_const", const=DEFAULTS.STREAM_SUBREDDIT
     )
     mxg.add_argument(
         "-s", "--submission",
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     # Choose either comment stream or comments from submission.
     if args.stream:
-        comments = sources.comment_stream()
+        comments = sources.comment_stream(args.stream)
     elif args.submission:
         comments = sources.submission(args.submission)
     elif args.ftf:
