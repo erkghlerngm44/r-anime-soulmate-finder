@@ -68,7 +68,7 @@ optional arguments:
 comment sources:
   source of comments, which will be processed
 
-  -c, --stream          use the comment stream as the comment source
+  -c, --stream          use the /r/anime comment stream as the comment source
   -s SUBMISSION_ID, --submission SUBMISSION_ID
                         use the comments in a submission as the comment
                         source. `SUBMISSION_ID` is the reddit submission id (6
