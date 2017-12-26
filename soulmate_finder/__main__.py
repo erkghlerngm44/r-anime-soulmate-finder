@@ -15,7 +15,7 @@ if __name__ == "__main__":
     mxg = group.add_mutually_exclusive_group(required=True)
     mxg.add_argument(
         "-c", "--stream",
-        help="use the comment stream as the comment source",
+        help="use the /r/anime comment stream as the comment source",
         action="store_true"
     )
     mxg.add_argument(
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     # Choose either comment stream or comments from submission.
     if args.stream:
-        comments = sources.comment_stream(args.stream)
+        comments = sources.comment_stream()
     elif args.submission:
         comments = sources.submission(args.submission)
     elif args.ftf:
