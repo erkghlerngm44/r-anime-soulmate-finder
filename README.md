@@ -191,7 +191,7 @@ Invocation:
 $ python3 -m soulmate_finder YOUR_MAL_USERNAME --ftf
 ```
 
-The above will process comments from the 5 most recent FTFs. A `LIMIT` can be passed as well,
+The above will process comments from the most recent FTF. A `LIMIT` can be passed as well,
 so you can specify how many FTFs you want to process (working backwards from the current one).
 
 This can be done as follows (to use the 10 most recent FTFs):
