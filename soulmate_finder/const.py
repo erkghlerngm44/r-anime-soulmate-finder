@@ -18,7 +18,7 @@ class PUSHSHIFT:
     BASE_URL = "https://api.pushshift.io/reddit"
 
     class ENDPOINTS:
-        COMMENT_IDS = "/submission/comment_ids"  # /{submission}
+        COMMENT_IDS = "/submission/comment_ids"  # /{submission_id}
         SUBMISSION_SEARCH = "/submission/search"
 
 REDDIT_USER_AGENT = "script:/r/anime soulmate finder v{}".format(VERSION)
