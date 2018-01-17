@@ -14,9 +14,12 @@ HEADERS = ["reddit", "mal", "affinity", "shared"]
 
 LOGGING_FORMAT = "%(message)s"
 
-class PUSHSHIFT_ENDPOINTS:
-    COMMENT_IDS = "https://api.pushshift.io/reddit/submission/comment_ids/{submission}"
-    SUBMISSION_SEARCH = "https://api.pushshift.io/reddit/submission/search/"
+class PUSHSHIFT:
+    BASE_URL = "https://api.pushshift.io/reddit"
+
+    class ENDPOINTS:
+        COMMENT_IDS = "/submission/comment_ids"  # /{submission}
+        SUBMISSION_SEARCH = "/submission/search"
 
 REDDIT_USER_AGENT = "script:/r/anime soulmate finder v{}".format(VERSION)
 
