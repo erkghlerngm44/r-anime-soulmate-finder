@@ -10,6 +10,16 @@ from . import const
 logger = logging.getLogger(__package__)
 
 
+def _pushshift_request(*path, method="GET", **kws):
+    path = "/".join(s.strip("/") for s in path)
+
+    url = "{base_url}/{path}".format(base_url=const.PUSHSHIFT.BASE_URL, path=path)
+
+    resp = requests.request(method, url, **kws)
+
+    return resp.json()["data"]
+
+
 def _retrieve_comment_ids(submission_id):
     # https://www.reddit.com/r/redditdev/comments/5to97v/slug/ddoeedj/
     comments = requests.request(
