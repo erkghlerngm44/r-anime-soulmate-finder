@@ -22,20 +22,15 @@ def _pushshift_request(*path, method="GET", **kws):
 
 def _retrieve_comment_ids(submission_id):
     # https://www.reddit.com/r/redditdev/comments/5to97v/slug/ddoeedj/
-    comments = requests.request(
-        "GET",
-        const.PUSHSHIFT_ENDPOINTS.COMMENT_IDS.format(submission=submission_id)
-    )
-
-    data = comments.json()["data"]
+    comments = _pushshift_request(const.PUSHSHIFT.ENDPOINTS.COMMENT_IDS, submission_id)
 
     # See if endpoint returns fullnames. If so, it's fine, if not, we'll have
     # to add the "t1_" (comment type prefix) to each one, and make sure we
     # return it as a list, as `reddit.info` really doesn't like generators.
-    if data[0].startswith("t1_"):  # assume if okay for one, it's okay for all
-        return data
+    if comments[0].startswith("t1_"):  # assume if okay for one, it's okay for all
+        return comments
 
-    return ["t1_" + x for x in data]
+    return ["t1_" + x for x in comments]
 
 
 def _retrieve_submissions(**params):
@@ -50,12 +45,9 @@ def _retrieve_submissions(**params):
         understands m,h,d (i.e. 4h to search the previous 4 hours, etc.)
     """
     # I love pushshift
-    submissions = requests.request(
-        "GET",
-        const.PUSHSHIFT_ENDPOINTS.SUBMISSION_SEARCH,
-        params=params
-    )
-    return submissions.json()["data"]
+    submissions = _pushshift_request(const.PUSHSHIFT.ENDPOINTS.SUBMISSION_SEARCH, params=params)
+
+    return submissions
 
 
 def _create_reddit_instance():
