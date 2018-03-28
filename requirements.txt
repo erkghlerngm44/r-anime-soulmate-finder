@@ -1,4 +1,4 @@
 malaffinity==2.5.2
-praw==5.3.0
+praw==5.4.0
 requests==2.18.4
 unicodecsv==0.14.1
