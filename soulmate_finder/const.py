@@ -10,7 +10,7 @@ class DEFAULTS:
     TIMEOUT = 9e999  # (inf)
     VERBOSE = False
 
-HEADERS = ["reddit", "mal", "affinity", "shared"]
+HEADERS = ["reddit", "username", "affinity", "shared"]
 
 LOGGING_FORMAT = "%(message)s"
 
