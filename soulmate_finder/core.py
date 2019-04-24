@@ -6,7 +6,7 @@ import logging
 import re
 import time
 
-import malaffinity
+import aniffinity
 import unicodecsv as csv
 
 from . import const
@@ -26,9 +26,8 @@ logger = logging.getLogger(__package__)
 regex = re.compile(const.REGEX, re.I)
 
 
-# Set the pearson stuff up.
-# Too lazy to rename everything and update docs. Sorry
-pearson = malaffinity.MALAffinity(round=const.ROUND_AFFINITIES_TO)
+# Affinity stuff
+pearson = aniffinity.Aniffinity(round=const.ROUND_AFFINITIES_TO)
 
 
 def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_BODY):
@@ -59,22 +58,19 @@ def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_
             # Just set text to the comment body to avoid having to
             # rewrite this whole section
             logger.debug("- Searching comment body...")
-            text = comment.body
+            # FIXME: Need something here, maybe a URL regex match
+            # text = comment.body
 
         else:
             logger.debug("- Skipping...")
             return
 
-    match = regex.search(text)
-
-    if not match:
-        logger.debug("- Can't find MAL username. Skipping...")
+    if not re.match(r"https?://", text):
+        logger.debug("- Can't find URL. Skipping...")
         return
 
-    username = match.group(1)
-
-    # Halt so MAL doesn't get angry if we make too many calls to their
-    # server in a short amount of time.
+    # Halt so the service doesn't get angry if we make too many calls
+    # to their server in a short amount of time.
     time.sleep(const.WAIT_BETWEEN_REQUESTS)
 
     # Two attempts, then give up. Adjust max tries here.
@@ -83,15 +79,15 @@ def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_
 
     for _ in range(2):
         try:
-            affinity, shared = pearson.calculate_affinity(username)
+            affinity, shared = pearson.calculate_affinity(text)
 
-        except malaffinity.exceptions.MALRateLimitExceededError:
-            logger.warning("- MAL's blocking us. "
+        except aniffinity.exceptions.RateLimitExceededError:
+            logger.warning("- Service is blocking us. "
                            "Halting for a few seconds...")
             time.sleep(const.RETRY_AFTER_FAILED_REQUEST)
             continue
 
-        except malaffinity.exceptions.MALAffinityException as e:
+        except aniffinity.exceptions.AniffinityException as e:
             logger.debug("- Affinity can't be calculated (`{}`). Skipping..."
                          .format(e))
             break
@@ -108,11 +104,17 @@ def handle_comment(comment, writer, search_comment_body=DEFAULTS.SEARCH_COMMENT_
     if not success:
         return
 
+    # We don't need to worry about `aniffinity.InvalidUserError` here,
+    # because, if it were going to be raised, it would have been raised in the
+    # code above, caught appropriately, and this bit wouldn't be executed.
+    username, service = aniffinity.resolver.resolve_user(text)
+    username = "{}:{}".format(service, username)
+
     logger.debug("- Calculated affinity: {}%".format(affinity))
 
     return writer.writerow({
         "reddit": author_name,
-        "mal": username,
+        "username": username,
         "affinity": affinity,
         "shared": shared
     })

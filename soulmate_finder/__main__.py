@@ -4,7 +4,9 @@ from .core import *
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="/r/anime soulmate finder")
 
-    parser.add_argument("mal_username")
+    parser.add_argument("-u", "--user",
+                        help="your username and service", nargs=2,
+                        metavar=("USERNAME", "SERVICE"), required=True)
 
     # https://stackoverflow.com/a/45602952
     # Comment source
@@ -82,7 +84,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Set pearson stuff up.
-    pearson.init(args.mal_username)
+    pearson.init(tuple(args.user))
 
     # Choose either comment stream or comments from submission.
     if args.stream:
