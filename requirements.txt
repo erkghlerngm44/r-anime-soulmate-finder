@@ -1,4 +1,4 @@
 aniffinity=0.2.0
 praw==6.1.1
-requests==2.21.0
+requests==2.26.0
 unicodecsv==0.14.1
